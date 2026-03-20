@@ -1,6 +1,9 @@
-# Project Name
-Put here a short paragraph describing your project. 
-Adding an screenshot or a mockup of your application in action would be nice.  
+# Temple Food Trucks
+In this project, we are going to create a dedicated website that accurately displays information for food
+trucks on Temple campus. Most students use google maps to find out information on a truck, but over
+half of them are not listed on google maps, nor is the information on them correct. A student has no idea
+if the silver halal truck is open longer than the green halal truck. The intended users will be students, staff,
+food truck owners, and visitors of Temple campus alike. 
 
 ![This is a screenshot.](images.png)
 # How to run
