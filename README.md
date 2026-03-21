@@ -30,7 +30,7 @@ Follow this project board to know the latest status of the project: [http://...]
 - What file and target to compile and run. 
 - What is expected to happen when the app start. 
 
-# FOR BACKEND DEVELOPMENT: 
+# FOR BACKEND DEVELOPMENT
 1. cd to backend/
 2. Create a python virtual environment using the following command:
     "python3 -m venv venv"
