@@ -1,4 +1,3 @@
-from django.db import models
 from django.contrib.gis.db import models
 
 # Food truck model with fields for name, food type, location, and active status
