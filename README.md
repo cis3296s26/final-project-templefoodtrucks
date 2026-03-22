@@ -45,9 +45,11 @@ Follow this project board to know the latest status of the project: [http://...]
 5. Open "http://localhost:8000/admin/" on a web browser
 
 To start the project: docker compose up -d
+
 To stop it: docker compose down
+
 To add a library: add it to backend/requirements.txt and run docker compose up --build
 
 If you change a model, run the following commands:
-    "docker compose exec web python manage.py makemigrations"
+    "docker compose exec web python manage.py makemigrations" and 
     "docker compose exec web python manage.py migrate"
