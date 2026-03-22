@@ -37,16 +37,16 @@ Follow this project board to know the latest status of the project: [http://...]
     "docker compose up --build -d"
 
 3. Sync database by running:
-    "docker compose exec web python manage.py migrate
+    "docker compose exec web python manage.py migrate"
 
 4. Create an admin account by running:
     "docker compose exec web python manage.py createsuperuser"
 
 5. Open "http://localhost:8000/admin/" on a web browser
 
-To start the project: docker compose up -d
+To start the project: "docker compose up -d"
 
-To stop it: docker compose down
+To stop it: "docker compose down'"
 
 To add a library: add it to backend/requirements.txt and run docker compose up --build
 
