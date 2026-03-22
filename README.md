@@ -30,11 +30,26 @@ Follow this project board to know the latest status of the project: [http://...]
 - What file and target to compile and run. 
 - What is expected to happen when the app start. 
 
-# FOR BACKEND DEVELOPMENT
-1. cd to backend/
-2. Create a python virtual environment using the following command:
-    "python3 -m venv venv"
-3. Activate the environment: 
-    - For Windows: "source venv\Scripts\activate" 
-    - For Linux: "source venv/bin/activate"
-4. Now, run "pip install -r requirements.txt"
+# Backend Developer Setup
+1. 
+ - Have Docker Desktop installed
+ - Have Git installed
+
+2. Build and start the containers by running:
+    "docker compose up --build -d"
+
+3. Sync database by running:
+    "docker compose exec web python manage.py migrate
+
+4. Create an admin account by running:
+    "docker compose exec web python manage.py createsuperuser"
+
+5. Open "http://localhost:8000/admin/" on a web browser
+
+To start the project: docker compose up -d
+To stop it: docker compose down
+To add a library: add it to backend/requirements.txt and run docker compose up --build
+
+If you change a model, run the following commands:
+    "docker compose exec web python manage.py makemigrations"
+    "docker compose exec web python manage.py migrate"
