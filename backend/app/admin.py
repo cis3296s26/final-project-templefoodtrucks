@@ -1,6 +1,7 @@
 from django.contrib.gis import admin
 from .models import FoodTruck
 
+
 # Register models here
 
 @admin.register(FoodTruck)
