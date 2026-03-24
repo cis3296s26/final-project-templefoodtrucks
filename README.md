@@ -29,3 +29,34 @@ Follow this project board to know the latest status of the project: [http://...]
 - Specify additional library to download if needed 
 - What file and target to compile and run. 
 - What is expected to happen when the app start. 
+
+# Backend Developer Setup
+1. Have Docker Desktop installed
+
+2. Build and start the containers by running:
+    "docker compose up --build -d"
+
+3. Sync database by running:
+    "docker compose exec web python manage.py migrate"
+
+4. Create an admin account by running:
+    "docker compose exec web python manage.py createsuperuser"
+
+5. Open "http://localhost:8000/admin/" on a web browser
+
+To start the project: "docker compose up -d"
+
+To stop it: "docker compose down'"
+
+To add a library: add it to backend/requirements.txt and run docker compose up --build
+
+If you change a model, run the following commands:
+    "docker compose exec web python manage.py makemigrations" and 
+    "docker compose exec web python manage.py migrate"
+
+If you get "Problem loading page" error in your browser, run "docker compose restart web" 
+
+For Linux users getting "Problem Loading page" 
+"docker compose down"
+"docker network prune -f"
+"docker compose up -d"
