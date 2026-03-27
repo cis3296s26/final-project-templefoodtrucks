@@ -18,6 +18,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=150)),
                 ('foodType', models.CharField(max_length=100)),
                 ('priceRange', models.CharField(max_length=50)),
+                ('coordinates', models.CharField(max_length=50))
             ],
         ),
     ]
