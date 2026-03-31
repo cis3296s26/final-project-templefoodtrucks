@@ -1,16 +1,17 @@
-import Link from "next/link";
+// imports from next
 
-const trucks = ["halal", "teppanyaki", "bagel hut"];
+// importing components
+import TruckCard from "../components/TruckCard";
 
-export default function TrucksPage() {
+const trucks = ["halal", "teppanyaki", "bagel hut", "bob"];
+
+export default function AllTrucksPage() {
   return (
     <div>
       <h1>All Trucks</h1>
       <ul>
-        {trucks.map((truck) => (
-          <li key={truck}>
-            <Link href={`/trucks/${truck}`}>{truck}</Link>
-          </li>
+        {trucks.map((truck, i) => (
+          <TruckCard key={i} truckName={truck} ></TruckCard>
         ))}
       </ul>
     </div>
