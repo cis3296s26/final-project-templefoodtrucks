@@ -17,6 +17,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=150)),
                 ('foodType', models.CharField(max_length=100)),
+                ('priceRange', models.CharField(max_length=50)),
+                ('coordinates', models.CharField(max_length=50))
             ],
         ),
     ]
