@@ -13,7 +13,13 @@ export default function AllTrucksPage() {
       <hr className="m-10 text-gray-500 w-11/12"></hr>
       <ul className="flex justify-center flex-wrap gap-10 basis-52">
         {trucks.map((truck, i) => (
-          <TruckCard key={i} truckName={truck} ></TruckCard>
+          <TruckCard key={i} truckName={truck}></TruckCard>
+        ))}
+      </ul>
+
+      <ul>
+        {trucks.map((truck, i) => (
+          <a className="m-5" key={i} href={"/trucks/" + truck}>{truck}</a>
         ))}
       </ul>
     </PageMain>
