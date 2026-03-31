@@ -4,7 +4,7 @@
 import TruckCard from "../components/TruckCard";
 import { PageMain } from "../components/PageMain";
 
-const trucks = ["halal", "teppanyaki", "bagel hut"];
+const trucks = ["halal", "teppanyaki", "bagel hut", "bob"];
 
 export default function AllTrucksPage() {
   return (
@@ -12,10 +12,8 @@ export default function AllTrucksPage() {
     <div>
       <h1>All Trucks</h1>
       <ul>
-        {trucks.map((truck) => (
-          <li key={truck}>
-            <a className="text" href={`/trucks/${truck}`}>{truck}</a>
-          </li>
+        {trucks.map((truck, i) => (
+          <TruckCard key={i} truckName={truck} ></TruckCard>
         ))}
       </ul>
     </div>

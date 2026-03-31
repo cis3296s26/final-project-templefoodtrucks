@@ -33,7 +33,7 @@ Follow this project board to know the latest status of the project: [http://...]
 # Backend Developer Setup
 1. Have Docker Desktop installed
 
-2. Build and start the containers by running:
+2. Build and start the containers by running (if doesn't work use: docker compose restart web):
     "docker compose up --build -d"
 
 3. Sync database by running:
