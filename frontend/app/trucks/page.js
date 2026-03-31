@@ -11,7 +11,7 @@ export default function AllTrucksPage() {
     <PageMain>
     <div>
       <h1>All Trucks</h1>
-      <ul>
+      <ul className="flex justify-center">
         {trucks.map((truck, i) => (
           <TruckCard key={i} truckName={truck} ></TruckCard>
         ))}
