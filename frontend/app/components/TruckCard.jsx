@@ -3,7 +3,7 @@ export default function TruckCard({truckName}){
     
     return (
         <>
-        <div className="flex justify-center bg-blue-500 m-4 p-4 w-5/12 rounded-4xl"> 
+        <div className="flex justify-center bg-blue-500 mb-4 p-4 w-5/12 rounded-4xl"> 
             <div className="">
 
                 <h1 className="text-center">{truckName}</h1> {/*This is the parameter for the food truck*/}
