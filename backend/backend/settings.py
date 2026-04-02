@@ -81,11 +81,10 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL', 'postgis://user:password@db:5432/foodtruckDB'),
+        default=os.getenv('DATABASE_URL'),
         engine='django.contrib.gis.db.backends.postgis'
     )
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
