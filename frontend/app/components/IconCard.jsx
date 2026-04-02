@@ -1,5 +1,5 @@
 export default function IconCard(){
     return (
-        <img src="/images/locationmark.pngz" alt="Location" className="w-10 h-10" />
+        <img src="/images/locationmark.png" alt="Location" className="w-10 h-10" />
     )
 }
