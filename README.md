@@ -69,3 +69,6 @@ For Linux users getting "Problem Loading page"
 5. IMPORTANT: WAIT 20 SECONDS
 6. run the NEW migrations: docker compose exec web python manage.py migrate
 7. create super user: docker compose exec web python manage.py createsuperuser
+
+# If you want to save log data locally
+run "docker compose exec web python manage.py dumpdata app --indent 2 > localDataBackup.json"
