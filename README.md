@@ -72,3 +72,11 @@ For Linux users getting "Problem Loading page"
 
 # If you want to save log data locally
 run "docker compose exec web python manage.py dumpdata app --indent 2 > localDataBackup.json"
+
+# If your changes are not updating in the cloud
+1. Check what django is speaking to by running
+docker compose exec web python manage.py shell -c "from django.conf import settings; print(settings.DATABASES['default']['HOST'])"
+
+2. if it says 'db', .env and settings.py didn't apply properly
+
+3. 
