@@ -79,4 +79,6 @@ docker compose exec web python manage.py shell -c "from django.conf import setti
 
 2. if it says 'db', .env and settings.py didn't apply properly
 
-3. 
+3. make sure your .env file's DATABASE_URL is pointing to the Neon link
+
+4. Make sure settings.py DATABASES points to the .env file's DATABASE_URL
