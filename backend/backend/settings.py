@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
+        default=os.getenv('DATABASE_URL', 'postgis://user:password@db:5432/foodtruckDB'),
         engine='django.contrib.gis.db.backends.postgis'
     )
 }

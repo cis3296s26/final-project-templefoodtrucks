@@ -6,4 +6,4 @@ from .models import FoodTruck
 
 @admin.register(FoodTruck)
 class FoodTruckAdmin(admin.GISModelAdmin):
-    list_display = ('name', 'foodType', 'priceRange', 'coordinates')
+    list_display = ('name', 'foodType', 'priceRange')
