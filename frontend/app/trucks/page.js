@@ -8,13 +8,15 @@ const trucks = ["halal", "teppanyaki", "bagel hut", "bob", "test1", "test2", "te
 
 export default function AllTrucksPage() {
   return (
-    <div className="flex flex-wrap justify-center m-20 gap-7"> {/* Keep this for now so that the box is centered */}
-      {/* <h1>All Trucks</h1> */}
+    <PageMain>
+      <div className="flex flex-wrap justify-center m-20 gap-7"> {/* Keep this for now so that the box is centered */}
+        {/* <h1>All Trucks</h1> */}
+        
+        {trucks.map((truck, i) => (
+          <TruckCard key={i} truckName={truck} ></TruckCard>
+        ))}
       
-      {trucks.map((truck, i) => (
-        <TruckCard key={i} truckName={truck} ></TruckCard>
-      ))}
-    
-    </div>
+      </div>
+    </PageMain>
   );
 }
