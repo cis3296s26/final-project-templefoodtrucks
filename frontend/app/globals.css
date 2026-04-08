@@ -24,3 +24,40 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/*This is to animate the spinning block*/
+.animate-glow {
+  position: relative;
+  isolation: isolate;
+  /* z-index: 1; */
+}
+
+@property --angle{
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.animate-glow::before, .animate-glow::after {
+  content: "";
+  position: absolute;
+  inset:-3px;
+  background: conic-gradient(from var(--angle), transparent 20%, transparent 10%, rgb(59, 153, 253), cyan, transparent 10%, rgb(82, 225, 223), rgb(170, 212, 231));
+  z-index: -1;
+  border-radius: 100px;
+  animation: 10s spin linear infinite;
+}
+
+.animate-glow::before {
+  filter: blur(8px);
+  opacity: 0.3;
+}
+
+@keyframes spin{
+  from{
+    --angle: 0deg;
+  }
+  to{
+    --angle: 360deg;
+  }
+}
