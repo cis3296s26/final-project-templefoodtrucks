@@ -22,7 +22,7 @@ export default function TruckCard({truckName}){
                 {/* Below is the descriptions that are inside the box */}
                 <div className="p-4">
 
-                    <h1 className="text-center p-2 font-bold">{truckName}</h1> {/*This is the parameter for the food truck*/}
+                    <h1 className="text-center text-2xl p-2 font-bold">{truckName}</h1> {/*This is the parameter for the food truck*/}
                     <hr/>
                     <p className="wrap-break-word p-4">This is the description for the food truck. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt odio quis cum commodi ullam harum velit atque culpa quod molestias nihil amet quam sapiente, exercitationem sit optio saepe aliquam cupiditate.</p>
                 </div>  
