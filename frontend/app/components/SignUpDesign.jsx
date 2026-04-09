@@ -11,7 +11,7 @@ export default function SignUpDesign(){
             {/* <div className="absolute top-0 left-0">
                 <TruckAnimation></TruckAnimation>
             </div> */}
-                <div className="relative bg-blue-500 w-200 h-170 rounded-4xl m-10 p-25 shadow-2xl shadow-cyan-300"> {/*Relative allows the circle to be hidden behind the blue box */}
+                <div className="relative bg-linear-to-r from transparent via-blue-300 to-transparent w-200 h-170 rounded-4xl m-10 p-25 shadow-2xl shadow-cyan-300"> {/*Relative allows the circle to be hidden behind the blue box */}
                     <div className="absolute top-0 left-0">
                         <TruckAnimation className=""></TruckAnimation>
                     </div>
