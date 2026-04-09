@@ -6,8 +6,8 @@ export default function TruckCard({truckName}){
     // hi
     
     return (
-        <Link href={`/trucks/${truckName}`} className="bg-blue-500 mb-4 w-3/12 rounded-4xl border-4 m-4 overflow-hidden hover:scale-105 hover:shadow-xl transition-all duration-300">
-            <div > {/* This is to stylize the content and the individual card */}
+        <Link href={`/trucks/${truckName}`} className="bg-blue-500 mb-4 w-3/12 rounded-4xl border-4 m-4 overflow-hidden hover:scale-105 hover:shadow-xl transition-all duration-300 shadow-2xl">
+            <div> {/* This is to stylize the content and the individual card */}
                 <div className="bg-amber-800 h-64 rounded-t-4xl relative"> {/*this is an image placeholder*/}
                     <div className="w-30 h-10 absolute bottom-2 right-2"> {/* you need relative in the parent div with absolute as child to control the positioning */}
                         {/* <svg viewBox="0 0 24 24" className="w-20 h-7 stroke-1.3 stroke-black"> this creates a star for rating
