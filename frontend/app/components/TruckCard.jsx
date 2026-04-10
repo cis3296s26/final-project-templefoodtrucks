@@ -1,3 +1,5 @@
+"use client"
+
 import IconCard from "./IconCard"
 import Link from "next/link"
 import StoreStatus from "./StoreStatus"

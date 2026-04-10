@@ -1,3 +1,5 @@
+"use client"
+
 import ColorChange from "./ColorChange";
 import TruckAnimation from "./TruckAnimation";
 
