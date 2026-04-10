@@ -4,7 +4,7 @@ import TruckAnimation from "./TruckAnimation";
 export default function SignUpDesign(){
     return(
         <>
-        <div className="flex justify-center relative m-4">
+        <div className="flex justify-center relative m-4 overflow-y-clip">
             <div className="absolute top-0 left-0">
                 <ColorChange/>
             </div>

@@ -5,7 +5,8 @@ import { cn } from "../lib/utils";
 
 import {
     CircleQuestionMark,
-    ForkKnifeCrossedIcon
+    ForkKnifeCrossedIcon,
+    UserPlus
 } from "lucide-react";
 
 import Link from "next/link";
@@ -16,6 +17,7 @@ export default function Navbar() {
   const navLinks = [
     { href: "/trucks", label: "All Trucks", icon: ForkKnifeCrossedIcon },
     { href: "/about", label: "About", icon: CircleQuestionMark },
+    { href: "/signup", label: "Sign Up", icon: UserPlus },
   ];
 
   return (
@@ -28,7 +30,7 @@ export default function Navbar() {
               href="/"
               className="flex items-center gap-2 text-white font-semibold text-lg tracking-tight hover:opacity-80 transition-opacity"
             >
-              <span className="hidden sm:inline">Temple Food Trucks</span>
+              <span className="hidden sm:inline font-serif">Temple Food Trucks</span>
             </Link>
 
             {/* Navigation Links */}

@@ -4,7 +4,9 @@ import SignUpDesign from "../components/SignUpDesign";
 export default function SignUp(){
     return(
         <PageMain>
-            <SignUpDesign></SignUpDesign>
+            <SignUpDesign>
+
+            </SignUpDesign>
         </PageMain>
     )
 }

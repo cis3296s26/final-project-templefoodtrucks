@@ -23,7 +23,7 @@ export function PageMain({children}) {
     <>
     <div 
       style={{backgroundColor: bgColor}}
-      className={`pt-18 relative flex min-h-screen flex-col items-center h-max pb-12 justify-center px-15`}
+      className={`pt-18 relative flex min-h-screen flex-col items-center h-fit pb-12 justify-center px-15`}
     >
       <Navbar></Navbar>
       <main className="grow my-5 text-center">{children}</main>
