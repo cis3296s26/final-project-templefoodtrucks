@@ -150,3 +150,19 @@ body {
     transform: translateX(0) translateY(0) rotate(0deg);
   }
 }
+
+/* Create a faded popup animation */
+.animate-signupPop{
+  position: relative;
+  isolation: isolate;
+  animation: animate-signupPop 2s linear forwards;
+}
+
+@keyframes animate-signupPop{
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-150px);
+  }
+}
