@@ -6,7 +6,7 @@ import {
 
 import IconPopup from "./IconPopup"
 
-export default function IconCard({location}){
+export default function IconCard({location, phoneNumber, foodType}){
     return (
         <div>
             <div className="flex flex-wrap gap-2 justify-center">
@@ -15,7 +15,7 @@ export default function IconCard({location}){
                         <MapPin className="w-20 h-10 cursor-pointer"></MapPin>
                         
                         <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block transition-opacity  bg-white bg-gradient-to-b from to-gray-300 text-black text-2xl rounded-2xl px-2 py-2"> {/* this is for the hovering effect over the icon */}
-                            <IconPopup value="Temple University, PA, 12345"></IconPopup>
+                            <IconPopup value={location}></IconPopup>
                         </span>
                     </div>
                 </div>
@@ -26,7 +26,7 @@ export default function IconCard({location}){
                         <Phone className="w-20 h-10 cursor-pointer"></Phone>
                         
                         <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block transition-opacity  bg-white bg-gradient-to-b from to-gray-300 text-black text-2xl rounded-2xl px-2 py-2"> {/* this is for the hovering effect over the icon */}
-                            <IconPopup value="123-456-7890"></IconPopup>
+                            <IconPopup value={phoneNumber}></IconPopup>
                         </span>
                     </div>
                 </div>
@@ -36,7 +36,7 @@ export default function IconCard({location}){
                         <Hamburger className="w-20 h-10 cursor-pointer"></Hamburger>
                             
                         <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block transition-opacity  bg-white bg-gradient-to-b from to-gray-300 text-black text-2xl rounded-2xl px-2 py-2"> {/* this is for the hovering effect over the icon */}
-                            <IconPopup value="Smoothie"></IconPopup>
+                            <IconPopup value={foodType}></IconPopup>
                         </span>
                     </div>
                 </div>
