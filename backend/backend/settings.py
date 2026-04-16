@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'rest_framework',
+    'rest_framework_gis',
     'corsheaders',
     "app" # if we end up changing the name of the app folder, change it here too
 ]
