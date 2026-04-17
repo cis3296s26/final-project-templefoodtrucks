@@ -1,5 +1,5 @@
-import { PageMain } from "../components/PageMain"
-import SignUpInfoDesign from "../components/SignUpInfoDesign"
+import { PageMain } from "../../components/PageMain"
+import SignUpInfoDesign from "../../components/SignUpInfoDesign"
 
 
 export default function SignUp_Info(){
