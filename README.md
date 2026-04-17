@@ -82,3 +82,6 @@ docker compose exec web python manage.py shell -c "from django.conf import setti
 3. make sure your .env file's DATABASE_URL is pointing to the Neon link
 
 4. Make sure settings.py DATABASES points to the .env file's DATABASE_URL
+
+# To create a login JWT token
+docker compose exec web python manage.py shell -c "from django.core.signing import TimestampSigner; print(TimestampSigner(salt='signup-salt').sign(''))"
