@@ -18,3 +18,17 @@ class FoodTruck(models.Model):
 
     def __str__(self):
         return self.name
+
+class Review(models.Model):
+    truck = models.ForeignKey(FoodTruck, on_delete=models.CASCADE)
+    email = models.EmailField()
+    rating = models.IntegerField()
+    comment = models.TextField(blank=True)
+
+
+class TruckSubmission(models.Model):
+    email = models.EmailField()
+    name = models.CharField(max_length=150)
+    foodType = models.CharField(max_length=100)
+    location_text = models.CharField(max_length=255)
+    priceRange = models.CharField(max_length=100)
