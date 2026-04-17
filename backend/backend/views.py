@@ -1,11 +1,78 @@
+# It is so annoying that django doesn't like camel case :/ 
+import token
+
 from django.shortcuts import render
 from rest_framework import generics, permissions
 from app.models import FoodTruck
 from app.serializer import FoodTruckSerializer
 from .permissions import ownerOrReadOnly 
+from django.core.signing import TimestampSigner, SignatureExpired
+from django.http import JsonResponse
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAdminUser
+from django.contrib.auth.models import User
+from rest_framework.response import Response
+from django.contrib.auth.models import Group
+from django.views.decorators.csrf import csrf_exempt
 
-# It is so annoying that django doesn't like camel case :/ 
+# Initialize a TimestampSigner instance for signing and verifying tokens (FOR QR CODE)
+signer = TimestampSigner(salt='signup-salt') 
 
+# This view verifies the signup token and creates a new user if the token is valid
+# It checks the validity and expiration of the token (valid for 24 hours = 86400 seconds) 
+# and ensures that the user does not already exist before creating a new user account
+@csrf_exempt
+@api_view(['POST'])
+def verify_signup(request):
+    # Get the token, email, and password from the request data
+    token = request.data.get('token')
+    print(f"Received token: {token}")
+    email = request.data.get('email')
+    password = request.data.get('password')
+
+    try:
+        signer.unsign(token, max_age=86400)
+    except Exception as e:
+        print(f"Token Validation Failed: {str(e)}")
+        return Response({'error': f'Invalid or expired token: {str(e)}'}, status=403)
+    
+    # Check if a user with the given email already exists
+    if User.objects.filter(username=email).exists():
+        return Response({'error': 'User already exists'}, status=400)
+    
+    # Create a new user with the provided email and password
+    user = User.objects.create_user(username=email, email=email, password=password)    
+
+    # Now add them to an "owners" group
+    owner_group, created = Group.objects.get_or_create(name='Owner')
+    user.groups.add(owner_group)
+
+    user.save()
+    # Return a success message if the user is created successfully
+    return Response({'message': 'User created successfully'})
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser]) 
+# This view generates a signed invite link for the food truck application. Only admin users can access this view.
+def generate_invite_link(request):
+    # Generate a signed token for the invite link
+    token = signer.sign('food-truck-invite')
+    # Create the invite URL using the generated token 
+    invite_url = f"http://localhost:3000/invite/{token}"
+    # Return the invite URL as a JSON response
+    return JsonResponse({'invite_url': invite_url})  
+
+@api_view(['POST'])
+# This view verifies the invite token and allows users to sign up if the token is valid 
+# It checks the validity and expiration of the token
+def verify_invite_and_signup(request):
+    # Get the token from the request data
+    token = request.data.get('token')
+    # Try to unsign the token and check if it is valid and not expired (valid for 24 hours = 86400 seconds)
+    try:
+        signer.unsign(token, max_age=86400)
+    except (SignatureExpired, Exception):
+        return JsonResponse({'error': 'Invalid or expired token'}, status=403)
 # This class defines a view for listing and creating FoodTrucks
 # It uses Django REST Framework's generics to provide functionality for handling GET and POST requests
 class FoodTruckList(generics.ListCreateAPIView):
