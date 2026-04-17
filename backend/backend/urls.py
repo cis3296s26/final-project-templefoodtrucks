@@ -17,6 +17,7 @@ Including another URLconf
 from . import views
 from django.contrib import admin
 from django.urls import path
+from .views import FoodTruckList
 
 # Define URL patterns for the backend application
 urlpatterns = [
