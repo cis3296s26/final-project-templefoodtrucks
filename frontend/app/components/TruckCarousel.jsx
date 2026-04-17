@@ -36,7 +36,7 @@ export default function TruckCarousel() {
       className="w-full max-w-200 h-128 border-2 border-black"
       pagination={{ clickable: true }}
       loop={true}
-      speed={3000}
+      speed={300}
       autoplay={{
         delay: 5000,
         disableOnInteraction: false,
