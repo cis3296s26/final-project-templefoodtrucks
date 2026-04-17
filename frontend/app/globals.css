@@ -65,15 +65,36 @@ body {
 
 /* This is to animate the truck moving */
 
-.animate-truck{
-  position: relative;
-  isolation: isolate;
-  animation: 
-    animate-truck 5s linear infinite;
+.animate-truck1{
+  /* position: relative;
+  isolation: isolate; */
+  animation: animate-truck1 5s linear infinite;
 }
 
-/* This is to animate teh truck moving in a circle around the border */
-/* @keyframes animate-truck{
+/* This animates the truck to move forward and rush back */
+@keyframes animate-truck1{
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  } 
+  80%{
+    transform: translateX(675px) translateY(0) rotate(0deg);
+  }
+  83%{
+    transform: translateX(680px) translateY(-20px) rotate(45deg);
+  }
+  88%{
+    transform: translateX(500px) translateY(-20px) rotate(0deg);
+  }
+  90%{
+    transform: translateX(450px) translateY(-10px) rotate(0deg);
+  }
+  100% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+}
+
+/* This is to animate the truck moving in a circle around the border */
+/* @keyframes animate-truck1{
   0% {
     transform: translateX(0) translateY(0) rotate(0deg);
   } 
@@ -129,24 +150,100 @@ body {
   }
 } */
 
-/* This animates the truck to move forward and rush back */
-@keyframes animate-truck{
+/* Create a faded popup animation */
+.animate-signupPop{
+  position: relative;
+  isolation: isolate;
+  animation: animate-signupPop 2s linear forwards;
+}
+
+@keyframes animate-signupPop{
   0% {
-    transform: translateX(0) translateY(0) rotate(0deg);
-  } 
-  80%{
-    transform: translateX(675px) translateY(0) rotate(0deg);
-  }
-  83%{
-    transform: translateX(680px) translateY(-20px) rotate(45deg);
-  }
-  88%{
-    transform: translateX(500px) translateY(-20px) rotate(0deg);
-  }
-  90%{
-    transform: translateX(450px) translateY(-10px) rotate(0deg);
+    transform: translateY(0);
   }
   100% {
-    transform: translateX(0) translateY(0) rotate(0deg);
+    transform: translateY(-150px);
+  }
+}
+
+.animate-custortruck {
+  position: relative;
+  isolation: isolate;
+  animation: animate-custortruck 1s linear infinite; 
+}
+
+@keyframes animate-custortruck{
+  0% {
+    transform: translateY(0); /* start at origin position */
+  } 
+  10% {
+    transform: translateY(10px); /* goes down the y-axis */
+  }
+  50% { 
+    transform: translateY(-20px); /* goes up the y-axis */
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Save this just in case you want to change the customer icon animation */
+/* .animate-custortruckUser {
+  position: relative;
+  isolation: isolate;
+  animation: animate-custortruckUser 1s linear infinite;
+}
+
+@keyframes animate-custortruckUser {
+  0% {
+    transform: translate(0);
+  }
+  100% {
+    transform: translate(0);
+  }
+} */
+
+
+.animate-truck2{
+  position: relative;
+  isolation: isolate;
+  animation: animate-truck2 5s linear infinite;
+}
+
+@keyframes animate-truck2{
+  0% {
+    opacity: 0.25;
+    transform: translateX(0) translateY(-330px) rotate(0deg);
+  } 
+  1%{
+    opacity: 1;
+    transform: translateX(0) translateY(-330px) rotate(0deg);
+  }
+  30%{
+    transform: translateX(1000px) translateY(-330px) rotate(0deg);
+  }
+  35%{
+    transform: translateX(1000px) translateY(-130px) rotate(90deg);
+  }
+  40%{
+    transform: translateX(1000px) translateY(200px) rotate(90deg);
+  }
+  45%{
+    transform: translateX(1000px) translateY(500px) rotate(1300deg);
+  }
+  60%{
+    transform: translateX(1000px) translateY(2000px) rotate(1800deg);
+  }
+  70%{
+    opacity: 0;
+    transform: translateX(0) translateY(-330px) rotate(1800deg);
+  }
+  80%{
+    opacity: 0;
+    transform: translateX(0) translateY(-650px) rotate(1800deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(-330px) rotate(0deg);
   }
 }
