@@ -1,9 +1,12 @@
 from django.contrib.gis import admin
 from .models import FoodTruck
 
-
-# Register models here
-
 @admin.register(FoodTruck)
 class FoodTruckAdmin(admin.GISModelAdmin):
-    list_display = ('name', 'foodType', 'priceRange', 'status')
+    listDisplay = ('name', 'foodType', 'priceRange', 'status', 'openingTime', 'closingTime')
+
+    # Add filters for status and price range
+    listFilter = ('status', 'priceRange')
+
+    # Add search functionality for name and food type
+    searchFields = ('name', 'foodType')
