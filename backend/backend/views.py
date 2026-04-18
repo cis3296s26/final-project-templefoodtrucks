@@ -1,6 +1,6 @@
 # It is so annoying that django doesn't like camel case :/ 
 import token
-
+import os
 from django.shortcuts import render
 from rest_framework import generics, permissions
 from app.models import FoodTruck
@@ -58,8 +58,9 @@ def generate_invite_link(request):
     # Generate a signed token for the invite link
     token = signer.sign('food-truck-invite')
     # Create the invite URL using the generated token 
-    invite_url = f"http://localhost:3000/invite/{token}"
-    # Return the invite URL as a JSON response
+    frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:3000')
+    invite_url = f"{frontend_url}/invite/{token}"    
+    
     return JsonResponse({'invite_url': invite_url})  
 
 @api_view(['POST'])
