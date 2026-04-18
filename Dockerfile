@@ -3,8 +3,8 @@ FROM python:3.12-slim
 
 # Install GIS libraries
 RUN apt-get update && apt-get install -y \
-    binutils \
-    libproj-dev \
+    binutils libproj-dev gdal-bin \
+    libjpeg-dev zlib1g-dev \
     gdal-bin \
     libgdal-dev \
     python3-gdal \
