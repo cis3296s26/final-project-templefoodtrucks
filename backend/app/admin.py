@@ -6,7 +6,7 @@ class GalleryInLine(admin.TabularInline):
     extra = 5
 
 @admin.register(FoodTruck)
-class FoodTruckAdmin(admin.GISModelAdmin):
+class FoodTruckAdmin(admin.ModelAdmin):
     inlines = [GalleryInLine]
     list_display = ('name', 'foodType', 'priceRange', 'status', 'openingTime', 'closingTime')
 

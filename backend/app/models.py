@@ -11,7 +11,7 @@ class FoodTruck(models.Model):
     ]
     name = models.CharField(max_length=150)
     foodType = models.CharField(max_length=100)
-    location = models.PointField() # Map location of the food truck
+    location = models.CharField(max_length=200)
     priceRange = models.CharField(max_length=100)
     status = models.CharField(max_length=10, choices=statusChoices, default='OPEN') # Whether the food truck is currently open or closed
     openingTime = models.TimeField(null=True, blank=True) # Time when the food truck opens
