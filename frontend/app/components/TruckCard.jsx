@@ -1,4 +1,5 @@
 "use client";
+// import { Image, View, Text, StyleSheet } from "react-native";
 
 import IconCard from "./IconCard";
 import Link from "next/link";
@@ -18,26 +19,34 @@ export default function TruckCard({ truck }) {
 
   return (
     <Link
-      href={`/trucks/${truckName}`}
+      href={`/trucks/${truck.id}`}
       className="bg-blue-500 mb-4 w-3/12 rounded-4xl border-4 m-4 overflow-hidden hover:scale-105 hover:shadow-xl transition-all duration-300 shadow-2xl"
     >
       <div>
         {" "}
         {/* This is to stylize the content and the individual card */}
-        <div className="bg-amber-800 h-64 rounded-t-4xl relative">
-          {" "}
-          {/*this is an image placeholder*/}
-          <div className="w-30 h-10 absolute bottom-2 right-2">
-            {" "}
-            {/* you need relative in the parent div with absolute as child to control the positioning */}
-            {/* <svg viewBox="0 0 24 24" className="w-20 h-7 stroke-1.3 stroke-black"> this creates a star for rating
-                            <path fill="yellow" d="M12 2 L15 9 L22 9 L17 14 L19 21 L12 17 L5 21 L7 14 L2 9 L9 9 Z"></path>
-                        </svg> */}
-            <div className="flex flex-wrap justify-center absolute bottom-50 border-3 border-black bg-white w-30 h-10 rounded-2xl overflow-hidden">
-              <StoreStatus isOpen={isOpen}></StoreStatus>
+        
+          {/* Replace the bg-amber-800 div with this */}
+          <div className="h-64 rounded-t-4xl relative overflow-hidden">
+            {truck.image ? (
+              <img 
+                src={truck.image} 
+                alt={truckName} 
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="bg-amber-800 w-full h-full flex items-center justify-center">
+                <span className="text-white">No Image Available</span>
+              </div>
+            )}
+            
+            {/* Your StoreStatus overlay stays exactly the same */}
+            <div className="w-30 h-10 absolute bottom-2 right-2">
+              <div className="flex flex-wrap justify-center absolute bottom-50 border-3 border-black bg-white w-30 h-10 rounded-2xl overflow-hidden">
+                  <StoreStatus isOpen={isOpen} />
+              </div>
             </div>
           </div>
-        </div>
         {/* Below is the descriptions that are inside the box */}
         <div className="p-4">
           <h1 className="text-center text-2xl p-2 font-bold">{truckName}</h1>{" "}

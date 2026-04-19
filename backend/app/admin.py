@@ -1,12 +1,17 @@
 from django.contrib.gis import admin
-from .models import FoodTruck
+from .models import FoodTruck, FoodTruckImageGallery
+
+class GalleryInLine(admin.TabularInline):
+    model = FoodTruckImageGallery
+    extra = 5
 
 @admin.register(FoodTruck)
-class FoodTruckAdmin(admin.GISModelAdmin):
-    listDisplay = ('name', 'foodType', 'priceRange', 'status', 'openingTime', 'closingTime')
+class FoodTruckAdmin(admin.ModelAdmin):
+    inlines = [GalleryInLine]
+    list_display = ('name', 'foodType', 'priceRange', 'status', 'openingTime', 'closingTime')
 
     # Add filters for status and price range
-    listFilter = ('status', 'priceRange')
+    list_filter = ('status', 'priceRange')
 
     # Add search functionality for name and food type
-    searchFields = ('name', 'foodType')
+    search_fields = ('name', 'foodType')

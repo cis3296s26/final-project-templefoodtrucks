@@ -10,3 +10,6 @@ dj-database-url
 dj-database-url==2.1.0
 python-dotenv
 qrcode[pil]
+Pillow
+django-cloudinary-storage
+cloudinary

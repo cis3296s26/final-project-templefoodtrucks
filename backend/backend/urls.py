@@ -16,14 +16,16 @@ Including another URLconf
 """
 from . import views
 from django.contrib import admin
-from django.urls import path
-from .views import FoodTruckList
+from django.urls import path, include
+from .views import verify_signup, FoodTruckList, FoodTruckDetail, generate_invite_link, verify_invite_and_signup
+from django.conf import settings
+from django.conf.urls.static import static
 
 # Define URL patterns for the backend application
 urlpatterns = [
     # Admin site URL
     path('admin/', admin.site.urls),
-    # List view for all food trucks
+    # List view for all food trucks (api endpoint)
     path('foodtrucks/', FoodTruckList.as_view(), name='foodtruck-list'),
     # Detail view for a specific food truck, identified by its primary key (pk)
     # for example, /foodtrucks/1/ would retrieve the details of the food truck with ID=1
@@ -33,3 +35,5 @@ urlpatterns = [
     path('auth/generate-invite-link/', views.generate_invite_link, name='generate-invite-link'),
     path('auth/verify-invite-and-signup/', views.verify_invite_and_signup, name='verify-invite-and-signup'),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
