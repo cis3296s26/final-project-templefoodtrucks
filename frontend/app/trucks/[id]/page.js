@@ -37,7 +37,7 @@ export default function TruckDetailPage() {
 
   const listItems = [
     { icon: Info, label: truck.status},
-    { icon: MapPin, label: "test" },
+    { icon: MapPin, label: truck.location },
     { icon: Clock, label: `${truck.openingTime} - ${truck.closingTime}` },
     { icon: LucideCircleDollarSign, label: truck.priceRange },
     { icon: Phone, label: "test" },

@@ -9,6 +9,7 @@ export default function TruckCard({ truck }) {
   const isOpen = truck.status
   const foodType = truck.foodType;
   const description = truck.description || "Description Not Provided ".repeat(10)
+  const location = truck.location
   const id = truck.id
 
   return (
@@ -45,7 +46,7 @@ export default function TruckCard({ truck }) {
         <hr />
         <div className="p-4">
           {/* this is for the icons popup: location, contacts, some sample of the menu */}
-          <IconCard location={"Temple University, PA, 12345"} phoneNumber={"123-456-7890"} foodType={foodType}></IconCard>
+          <IconCard location={location} phoneNumber={"123-456-7890"} foodType={foodType}></IconCard>
           {/* the deisgn of the icon will be in the IconCard component */}
         </div>
       </div>
