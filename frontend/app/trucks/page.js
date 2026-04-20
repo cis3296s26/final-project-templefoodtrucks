@@ -29,7 +29,7 @@ export default function AllTrucksPage() {
         {" "}
         {/* Keep this for now so that the box is centered */}
         {/* <h1>All Trucks</h1> */}
-        {trucks.map((truck, i) => (
+        {trucks?.map((truck, i) => (
           <TruckCard key={i} truck={truck}></TruckCard> 
         ))}
       </div>
