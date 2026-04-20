@@ -26,7 +26,7 @@ export default function TruckDetailPage() {
 
   useEffect(() => {
     async function getTruck() {
-      const res = await axiosClient(`foodtrucks/${id}`, null, "", "GET");
+      const res = await axiosClient(`foodtrucks/${id}/`, null, "", "GET");
       console.log(res);
       setTruck(res || {});
       console.log(truck)
@@ -55,8 +55,7 @@ export default function TruckDetailPage() {
       <hr className="my-10 text-gray-500 w-full"></hr>
       <div className="flex flex-row items-center justify-around">
         <h2 className="w-2/3 text-2xl leading-relaxed">
-          Welcome to {truck.name}! We specialize in {truck.foodType}. 
-          Currently we are {truck.status === 'OPEN' ? 'open for business!' : 'closed.'}
+          {truck.description}
         </h2>
       {/* The Dynamic Image Container */}
         <div className="w-3/12 h-auto border-2 border-black rounded-xl overflow-hidden shadow-lg">
@@ -76,15 +75,15 @@ export default function TruckDetailPage() {
       
       <hr className="my-10 text-gray-500 w-full"></hr>
       
-      <div className="flex gap-10">
+      <div className="flex gap-10 max-h-150">
         <div className="flex-1 min-w-0 overflow-hidden rounded-3xl border-2 border-black">
           <TruckCarousel images={truck.gallery_images}/>
         </div>
 
-        <ul className="basis-1/3 flex flex-col justify-start">
+        <ul className="basis-1/3 flex flex-col justify-evenly">
           {listItems.map(({ icon: Icon, label }, i) => (
             <li key={i} className="flex items-center gap-6 mb-8 text-4xl">
-              <Icon size={iconSize} color={iconColor} className="flex-shrink-0" />
+              <Icon size={iconSize} color={iconColor} className="shrink-0" />
               <span className="font-medium">{label}</span>
             </li>
           ))}

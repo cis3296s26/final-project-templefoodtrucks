@@ -9,7 +9,7 @@ export default function TruckCard({ truck }) {
   const truckName = truck.name;
   const isOpen = truck.status
   const foodType = truck.foodType;
-  const description = truck.description || "Description Not Provided ".repeat(10)
+  const description = truck.description
   const location = truck.location
   const id = truck.id
 
