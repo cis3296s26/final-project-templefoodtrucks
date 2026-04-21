@@ -10,7 +10,8 @@ export default function SignUpInfoDesign(){
 
     const [typefood, settypefood] = useState("");
     const [foodlist, setfoodlist] = useState([]);
-    const [visiblebutton, setvisiblebutton] = useState(false);
+    const [primage, setprimage] = useState(null);
+    const [allimg, setallimg] = useState([]);
 
 
     function addFood(){
@@ -33,6 +34,27 @@ export default function SignUpInfoDesign(){
         return colors[Math.floor(Math.random() * colors.length)];
     }
 
+    function importpriImg(e){
+        const file = e.target.files[0];
+        if(!file){
+            setError("No file selected");
+            return;
+        }
+        else{
+            setprimage(URL.createObjectURL(file));
+        }
+    }
+
+    function addmoreimg(e){
+        setallimg([...allimg, e]);
+        importImg(e);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault;
+    }
+
+
 
     return(
         <>
@@ -47,54 +69,104 @@ export default function SignUpInfoDesign(){
                 <TruckAnimation className="animate-truck2 overflow-hidden z-0"/>
                 <MiniPopUpInfo className="relative z-10"></MiniPopUpInfo>
                 
-                <div className="flex flex-col bg-blue-500 rounded-3xl w-full m-2 p-10 overflow-hidden">
-                    
-                    <h1 className="font-[Georgia] font-semibold text-[30px]">Truck's Description</h1>
-                    
-                    <div className="flex flex-wrap justify-center m-2 p-7 gap-7">
-                        <div className="bg-white w-150 h-10 rounded-4xl">
-                            <input placeholder="Truck's Name" required className="text-black focus:outline-none flex p-2 w-full"></input>
-                        </div>
-
-                        <textarea placeholder="Description about the truck" required className="bg-white w-150 h-50 rounded-2xl text-black focus:outline-none flex p-2 resize-none"/>   
-                    </div>
-
-                </div>
-
-                <div className="mt-30">
-                    <div className="flex flex-col justify-center bg-green-300 w-full rounded-3xl m-2 p-4 overflow-hidden">
-                        <h1 className="font-[Georgia] font-semibold text-[30px]">Type of Food</h1>
+                <form>
+                    {/* Name (String: "Temple Teppanyaki"), Description (Bio about the truck, String), Phone Number */}
+                    <div className="flex flex-col bg-blue-500 rounded-3xl w-full m-2 p-10 overflow-hidden">
                         
-                        <div className="flex flex-col items-center justify-center m-2 p-5 gap-5">
-                            
+                        <h1 className="font-[Georgia] font-semibold text-[30px]">Truck's Description</h1>
+                        
+                        <div className="flex flex-wrap justify-center m-2 p-7 gap-7">
                             <div className="bg-white w-150 h-10 rounded-4xl">
-                                <input 
-                                    placeholder="Type of Food"
-                                    type="text" 
-                                    value={typefood} 
-                                    onChange={(e) => settypefood(e.target.value)} 
-                                    onKeyDown={(e) => e.key === "Enter" && addFood()} // This is for when the  user want to press the enter key instead of using the add button 
-                                    className="text-black focus:outline-none flex p-2 w-full"/>
+                                <input placeholder="Truck's Name" required className="text-black focus:outline-none flex p-2 w-full"></input>
                             </div>
-                            
-                            <Typefoodbutton onClick={addFood}> Add </Typefoodbutton>
 
-                            <div className="flex flex-wrap gap-2">
-                                {foodlist.map((fooditem, index) => (
-                                    <span key={index} style={{ background: `linear-gradient(to top left, ${fooditem.color1}, ${fooditem.color2})` }} className="relative group px-5 p-4 border-4 border-cyan-100 rounded-2xl text-white text-2xl"> 
-                                        <button className="group-hover:opacity-0">{fooditem.name} </button>
-                                        <button onClick={() => removeFood(index)} className="absolute left-1/2 -translate-x-1/2 cursor-pointer font-bold opacity-0 group-hover:opacity-100 hover:scale-200 duration-300"> X </button>
-                                    </span>
-                                ))}
+                            <div className="bg-white rounded-4xl">
+                                <input required type="tel" placeholder="Phone-Number" className="text-black focus:outline-none flex p-2 w-full"></input>
                             </div>
+
+                            <textarea placeholder="Description about the truck" required className="bg-white w-150 h-50 rounded-2xl text-black focus:outline-none flex p-2 resize-none"/>   
                         </div>
 
                     </div>
-                </div>
+
+                    {/* Type of Food */}
+                    <div className="mt-20">
+                        <div className="flex flex-col bg-red-500 rounded-3xl w-full m-2 p-10 overflow-hidden">
+                            
+                            <h1 className="font-[Georgia] font-semibold text-[30px]">Type of Foods</h1>
+                            
+                            <div className="flex flex-wrap justify-center m-2 p-7 gap-7">
+                                <div className="bg-white w-150 h-10 rounded-4xl">
+                                    <input placeholder="Ex: Halal, Korean, Breakfast" required className="text-black focus:outline-none flex p-2 w-full"></input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Dietary Restrictions */}
+                    <div className="mt-20">
+                        <div className="flex flex-col justify-center bg-green-300 w-full rounded-3xl m-2 p-4 overflow-hidden">
+                            <h1 className="font-[Georgia] font-semibold text-[30px]">Dietary Restrictions</h1>
+                            
+                            <div className="flex flex-col items-center justify-center m-2 p-5 gap-5">
+                                
+                                <div className="bg-white w-150 h-10 rounded-4xl">
+                                    <input 
+                                        placeholder="Ex: Vegetarian, Vegan"
+                                        type="text" 
+                                        value={typefood} 
+                                        onChange={(e) => settypefood(e.target.value)} 
+                                        onKeyDown={(e) => e.key === "Enter" && addFood()} // This is for when the  user want to press the enter key instead of using the add button 
+                                        className="text-black focus:outline-none flex p-2 w-full"/>
+                                </div>
+                                
+                                <Typefoodbutton onClick={addFood}> Add </Typefoodbutton>
+
+                                <div className="flex flex-wrap gap-2">
+                                    {foodlist.map((fooditem, index) => (
+                                        <span key={index} style={{ background: `linear-gradient(to top left, ${fooditem.color1}, ${fooditem.color2})` }} className="relative group px-5 p-4 border-4 border-cyan-100 rounded-2xl text-white text-2xl"> 
+                                            <button className="group-hover:opacity-0">{fooditem.name} </button>
+                                            <button onClick={() => removeFood(index)} className="absolute left-1/2 -translate-x-1/2 cursor-pointer font-bold opacity-0 group-hover:opacity-100 hover:scale-200 duration-300"> X </button>
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {/* Primary Image */}
+                    <div className="mt-20 bg-yellow-400 p-4 rounded-4xl">
+                        <h1 className="font-[Georgia] font-semibold text-[30px] m-2">Truck's Image</h1>
+                        <div className="flex flex-wrap justify-center items-center bg-gray-400 rounded-3xl w-full h-50 overflow-hidden">
+                            
+                        <input type="file" accept="image/*" onChange={importpriImg} className="cursor-pointer"/>
+
+                        {primage && (
+                            <img src={primage} alt="Upload Preview" className="w-full" />
+                        )}
+                        </div>
+                    </div>
+
+                    {/* All Images */}
+                    <div className="mt-20 bg-purple-400 p-4 rounded-4xl">
+                        <h1 className="font-[Georgia] font-semibold text-[30px] m-2">Additional Truck Images</h1>
+                        <div className="flex flex-wrap justify-center items-center bg-gray-400 rounded-3xl w-full h-50 overflow-hidden">
+                            
+                        <input type="file" accept="image/*" onChange={importpriImg} className="cursor-pointer"/>
+
+                        {primage && (
+                            <img src={primage} alt="Upload Preview" className="w-full" />
+                        )}
+                        </div>
+                    </div>
+
+                </form>
 
                  <button className="absolute left-85 bg-black w-120 h-15 m-4 p-2 rounded-4xl overflow-hidden text-white flex justify-center hover:scale-110 hover:shadow-xl duration-300 transition-all hover:bg-white hover:text-black cursor-pointer">
                     <p className="font-bold text-3xl p-1.45">Register</p>
                 </button>
+                
     
             </div>
         </div>
@@ -102,19 +174,19 @@ export default function SignUpInfoDesign(){
     )
 }
 
-/* 
-Type of Food (String: "Halal" , "Korean" , "Breakfast")
-Prob import some library that has types of food lol
+// Type of Food (String: "Halal" , "Korean" , "Breakfast")
+// Prob import some library that has types of food lol
 
-Price Range (List: $5-$12)
+// Price Range (List: $5-$12)
 
-Name (String: "Temple Teppanyaki")
+// Name (String: "Temple Teppanyaki")
 
-Dietary Restrictions (String: "Vegetarian" , "Vegan")
+// Dietary Restrictions (String: "Vegetarian" , "Vegan")
 
-Open/Closed Currently (Boolean)
+// Phone Number
 
-Popularity (Float: 3.5 Stars)
+// Description (Bio about the truck, String)
 
-Description (Bio about the truck, String)
-*/
+// Primary image (String)
+
+// All images (Array of Strings)
