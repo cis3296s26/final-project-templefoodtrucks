@@ -17,7 +17,7 @@ export default function Navbar() {
   const navLinks = [
     { href: "/trucks", label: "All Trucks", icon: ForkKnifeCrossedIcon },
     { href: "/about", label: "About", icon: CircleQuestionMark },
-    { href: "/signup", label: "Sign Up", icon: UserPlus },
+    { href: "/login", label: "Log In", icon: UserPlus },
   ];
 
   return (

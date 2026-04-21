@@ -23,7 +23,7 @@ export default function TruckCard({ truck }) {
         {/* This is to stylize the content and the individual card */}
         
           {/* Replace the bg-amber-800 div with this */}
-          <div className="h-64 rounded-t-4xl relative overflow-hidden">
+          <div className="h-64 relative overflow-hidden">
             {truck.image ? (
               <img 
                 src={truck.image} 
@@ -32,7 +32,7 @@ export default function TruckCard({ truck }) {
               />
             ) : (
               <div className="bg-amber-800 w-full h-full flex items-center justify-center">
-                <span className="text-white">No Image Available</span>
+                <span className="text-white text-5xl font-bold">No Image Available</span>
               </div>
             )}
             

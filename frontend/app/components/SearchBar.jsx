@@ -2,10 +2,11 @@ import { Search } from "lucide-react";
 
 export default function SearchBar({onSubmit}) {
   return (
-    <form onSubmit={(e) => {e.preventDefault(); onSubmit()}}>
+    <form onSubmit={(e) => {e.preventDefault(); console.log(e); onSubmit(e)}}>
       <div className="min-w-full">
         <div className="flex justify-center gap-4">
           <input
+            name="name"
             placeholder="Filter Truck By Name or Type of Food"
             className="text-black p-2 bg-white rounded-4xl min-w-fit w-5/12 h-10 border-3 focus:outline-none font-[Trebuchet MS] text-center"
           />

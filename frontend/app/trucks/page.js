@@ -1,14 +1,17 @@
 "use client";
 
 // imports from next
+import { useState } from "react";
 
 // importing components
 import { PageMain } from "../components/PageMain";
 import SearchBar from "../components/SearchBar";
 import TruckCardList from "../components/TruckCardList";
 import MainPageTitle from "../components/MainPageTitle";
+import { setReactDebugChannelForHtmlRequest } from "next/dist/server/dev/debug-channel";
 
 export default function AllTrucksPage() {
+  const [request, setRequest] = useState("")
   return (
     <PageMain>
       <MainPageTitle
@@ -16,15 +19,17 @@ export default function AllTrucksPage() {
         description="The full list of every Food Truck that has registered with us. You can filter by name, type of truck to find exactly what you're looking for!"
       />
 
-      <SearchBar onSubmit={test} />
+      <SearchBar onSubmit={(e) => {getRequestFromSearchBar(e, setRequest); console.log(request)}} />
       <TruckCardList
         title="All Trucks"
-        request={["foodtrucks/", null, "", "GET"]}
+        request={[`foodtrucks/${request}`, null, "", "GET"]}
       />
     </PageMain>
   );
 }
 
-function test(){
-  console.log("hey")
+function getRequestFromSearchBar(e, setRequest){
+  const formData = new FormData(e.target)
+  const value = formData.get("name")
+  setRequest(`?name=${value}`)
 }

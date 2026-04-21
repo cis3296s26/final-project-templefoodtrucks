@@ -10,6 +10,7 @@ class FoodTruck(models.Model):
         ('CLOSED', 'Closed'),
     ]
     name = models.CharField(max_length=150)
+    description = models.CharField(max_length=1000)
     foodType = models.CharField(max_length=100)
     location = models.CharField(max_length=200)
     priceRange = models.CharField(max_length=100)
