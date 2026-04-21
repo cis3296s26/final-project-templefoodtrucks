@@ -18,7 +18,7 @@ class FoodTruckSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False, allow_null=True)
     class Meta:
         model = FoodTruck
-        fields = ['id', 'name', 'description', 'foodType', 'phoneNumber', 'dietaryRestrictions', 'popularity', 'location', 'priceRange', 'priceRangeArray', 'status', 'openingTime', 'closingTime', 'owner', 'image', 'gallery_images']
+        fields = ['id', 'name', 'description', 'foodType', 'phoneNumber', 'dietaryRestrictions', 'popularity', 'location', 'priceRangeArray', 'status', 'openingTime', 'closingTime', 'owner', 'image', 'gallery_images']
         # Make the owner field read only, so only the creater of the account can set it, and it cannot be changed through API requests. 
         # This ensures that the ownership of a food truck cannot be transferred to another user through the API.
         read_only_fields = ['owner']    
