@@ -27,7 +27,7 @@ export default function TruckCard({ truck }) {
         {/* This is to stylize the content and the individual card */}
         {/* Replace the bg-amber-800 div with this */}
         <div className="h-64 relative overflow-hidden">
-          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-white/90 px-3 py-1 rounded-xl border-2  flex gap-1 ">
+          <div className="absolute bottom-2 border-1 left-1/2 transform -translate-x-1/2 bg-white/70 border-black px-3 py-1 rounded-xl  flex gap-1 ">
             {renderStars(popularity)}
           </div>
           {truck.image ? (
@@ -73,14 +73,14 @@ const renderStars = (popularity) => {
     return (
       <div key={i} className="relative w-5 h-5">
         {/* Empty (background) star */}
-        <Star className="w-5 h-5 text-gray-300 absolute top-0 left-0" />
+        <Star className="w-5 h-5 text-gray-300 stroke-1 stroke-black absolute top-0 left-0" />
 
         {/* Filled portion */}
         <div
           className="absolute top-0 left-0 h-full overflow-hidden"
           style={{ width: `${fill * 100}%` }}
         >
-          <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+          <Star className="w-5 h-5 fill-yellow-400 text-yellow-400 stroke-black stroke-1" />
         </div>
       </div>
     );
