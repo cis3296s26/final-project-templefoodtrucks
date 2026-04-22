@@ -102,7 +102,7 @@ def get_trucks(request):
     foodtype = request.GET.get("foodtype", '')
     status = request.GET.get("status", '')
     price = request.GET.get("price", '')
-    # ratings = request.GET.get("ratings", '')
+    popularity = request.GET.get("popularity", '')
     
     queryset = FoodTruck.objects.all()
     
@@ -113,7 +113,14 @@ def get_trucks(request):
     if status:
         queryset = queryset.filter(status__icontains=status)
     if price:
-        queryset = queryset.filter(price__icontains=price)
+        queryset = queryset.filter(
+            priceRangeArray__0__lte=price,
+            priceRangeArray__1__gte=price
+        )
+    if popularity:
+        queryset = queryset.filter(
+            popularity__gte=popularity
+        )
     
     serializer = FoodTruckSerializer(queryset, many=True)
     return Response(serializer.data)

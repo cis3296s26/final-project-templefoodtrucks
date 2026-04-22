@@ -9,7 +9,7 @@ import "swiper/css/navigation";
 
 export default function TruckCarousel({ images}) {
   if (!images || images.length === 0) {
-    return <div className="w-full max-w-200 h-128 border-2 border-dashed border-gray-400 flex items-center justify-center bg-gray-100 italic">No images available</div>;
+    return <div className="w-full h-full border-2 border-dashed border-gray-400 flex items-center justify-center bg-gray-100 italic">No images available</div>;
   }
 return (
     <Swiper
@@ -18,7 +18,7 @@ return (
         "--swiper-pagination-color": "#040",
       }}
       modules={[Pagination, Navigation, Autoplay]}
-      className="w-full max-w-200 h-128 border-2 border-black"
+      className="w-full h-full border-2 border-black"
       pagination={{ clickable: true }}
       loop={images.length > 1} // Only loop if there's more than one image
       speed={300}

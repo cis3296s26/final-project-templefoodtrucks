@@ -19,7 +19,7 @@ export default function TruckCardList({ request }) {
     }
 
     allTrucks();
-  }, []);
+  }, [request[0]]);
 
   return (
     <div className="flex flex-wrap justify-center m-20 gap-7">

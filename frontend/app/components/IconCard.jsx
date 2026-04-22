@@ -8,7 +8,7 @@ import IconPopup from "./IconPopup"
 
 export default function IconCard({location, phoneNumber, foodType}){
     return (
-        <div>
+        <div className="p-4">
             <div className="flex flex-wrap gap-2 justify-center">
                 <div className="relative">
                     <div className="group inline-block">
