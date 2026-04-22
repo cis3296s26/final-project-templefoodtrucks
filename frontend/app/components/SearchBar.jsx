@@ -58,7 +58,7 @@ export default function SearchBar({ onSubmit }) {
             name="priceRange"
             type="number"
             min="1"
-            max="5"
+            max="50"
             step="0.1"
             placeholder="Price"
             className="text-black p-2 bg-white rounded-4xl w-2/12 h-10 border-3 focus:outline-none text-center"

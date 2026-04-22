@@ -21,7 +21,7 @@ import {
 
 export default function TruckDetailPage() {
   const [dietaryRestrictions, setDietaryRestrictions] = useState([]);
-  const [priceRangeArray, setPriceRangeArray] = useState(['?', '?']);
+  const [priceRangeArray, setPriceRangeArray] = useState(["?", "?"]);
   const [truck, setTruck] = useState({});
   const { id } = useParams();
 
@@ -41,7 +41,10 @@ export default function TruckDetailPage() {
     { icon: Info, label: truck.status },
     { icon: MapPin, label: truck.location },
     { icon: Clock, label: `${truck.openingTime} - ${truck.closingTime}` },
-    { icon: LucideCircleDollarSign, label: `$${priceRangeArray[0]} - $${priceRangeArray[1]}` },
+    {
+      icon: LucideCircleDollarSign,
+      label: `$${priceRangeArray[0]} - $${priceRangeArray[1]}`,
+    },
     { icon: Phone, label: truck.phoneNumber },
     { icon: ForkKnife, label: truck.foodType },
     { icon: StarIcon, label: `${truck.popularity}/5` },
@@ -79,14 +82,20 @@ export default function TruckDetailPage() {
           <TruckCarousel images={truck.gallery_images} />
         </div>
 
-        <ul className="basis-1/3 flex flex-col justify-evenly">
-          {listItems.map(({ icon: Icon, label }, i) => (
-            <li key={i} className="flex items-center gap-16 mb-8 text-4xl">
-              <Icon size={iconSize} color={iconColor} className="shrink-0" />
-              <span className="font-medium">{label}</span>
-            </li>
-          ))}
-        </ul>
+        <div className="lg:col-span-2 bg-white/50 rounded-2xl shadow-md border p-6">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {listItems.map(({ icon: Icon, label }, i) => (
+              <li key={i} className="flex items-center gap-4 m-5">
+                <div className="p-3 rounded-xl bg-gray-100">
+                  <Icon size={48} className="text-gray-700" />
+                </div>
+                <span className="text-3xl font-medium text-gray-800">
+                  {label || "N/A"}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <hr className="my-10 text-gray-500 w-full"></hr>

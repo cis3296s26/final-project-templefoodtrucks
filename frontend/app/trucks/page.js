@@ -8,7 +8,6 @@ import { PageMain } from "../components/PageMain";
 import SearchBar from "../components/SearchBar";
 import TruckCardList from "../components/TruckCardList";
 import MainPageTitle from "../components/MainPageTitle";
-import { setReactDebugChannelForHtmlRequest } from "next/dist/server/dev/debug-channel";
 
 export default function AllTrucksPage() {
   const [request, setRequest] = useState("")
