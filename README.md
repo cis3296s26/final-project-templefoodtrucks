@@ -94,3 +94,7 @@ docker compose exec web python manage.py shell -c "from django.core.signing impo
 
 
 docker compose exec web python manage.py migrate app 0003 --fake
+
+# "No migrations to apply" when you made changes: 
+
+docker compose exec web python manage.py makemigrations app
