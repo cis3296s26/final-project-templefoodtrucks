@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Typefoodbutton } from "./Typefoodbutton";
 import TruckAnimation from "./TruckAnimation";
 import MiniPopUpInfo from "./MiniPopUpInfo";
+import axiosClient from "../axiosClient";
 
 export default function SignUpInfoDesign() {
   const [typefood, settypefood] = useState("");
@@ -45,6 +46,44 @@ export default function SignUpInfoDesign() {
     setallimg([...allimg, null]);
   }
 
+  async function create_food_truck(e) {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+
+    const minPrice = e.target.minPrice.value;
+    const maxPrice = e.target.maxPrice.value;
+
+    const cleanDietary = foodlist.map((item) => item.toString().slice(0, 20));
+
+    formData.set("dietaryRestrictions", JSON.stringify(cleanDietary));
+
+    formData.set(
+      "priceRangeArray",
+      JSON.stringify([
+        Number(minPrice),
+        Number(maxPrice),
+      ]),
+    );
+
+    console.log(formData.get("priceRangeArray"))
+
+    formData.set("popularity", 0);
+
+    try {
+      const res = await axiosClient(
+        "create_food_truck/",
+        formData,
+        null,
+        "POST",
+      );
+
+      console.log("SUCCESS:", res.data);
+    } catch (err) {
+      console.log("ERROR:", err.response?.data);
+    }
+  }
+
   return (
     <div className="flex justify-center p-6 min-h-screen">
       <div className="relative w-full px-25 max-w-8/12 bg-linear-to-b border-2 from-white/50 to-black/50 rounded-3xl shadow-xl/30 shadow-black pt-8 pb-12">
@@ -55,7 +94,12 @@ export default function SignUpInfoDesign() {
         <TruckAnimation className="animate-truck2 opacity-100" />
         {/* <MiniPopUpInfo className="relative z-10"></MiniPopUpInfo> */}
 
-        <form className="space-y-8 -mt-65">
+        <form
+          onSubmit={(e) => {
+            create_food_truck(e);
+          }}
+          className="space-y-8 -mt-65"
+        >
           {/* General */}
           <Section title="Truck Information" color="bg-blue-500">
             <input name="name" type="text" placeholder="Truck Name" />
@@ -140,6 +184,16 @@ export default function SignUpInfoDesign() {
             </div>
           </Section>
 
+          {/* Type of Food */}
+          <Section title="Type Of Food" color="bg-lime-400">
+            <input
+              name="foodType"
+              type="text"
+              placeholder="Type Of Food"
+              className="input w-24"
+            />
+          </Section>
+
           {/* Location */}
           <Section title="Location" color="bg-teal-400">
             <input
@@ -168,7 +222,7 @@ export default function SignUpInfoDesign() {
             {allimg.map((img, index) => (
               <div key={index} className="flex flex-col gap-2">
                 <input
-                  name="maxPrice"
+                  name="image_gallery_"
                   type="file"
                   accept="image/*"
                   onChange={(e) =>
