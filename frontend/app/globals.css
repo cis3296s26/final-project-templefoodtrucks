@@ -213,37 +213,37 @@ body {
 @keyframes animate-truck2{
   0% {
     opacity: 0.25;
-    transform: translateX(0) translateY(-330px) rotate(0deg);
+    transform: translateX(0) translateY(-600px) rotate(0deg);
   } 
   1%{
     opacity: 1;
-    transform: translateX(0) translateY(-330px) rotate(0deg);
+    transform: translateX(0) translateY(-600px) rotate(0deg);
   }
   30%{
-    transform: translateX(1000px) translateY(-330px) rotate(0deg);
+    transform: translateX(905px) translateY(-600px) rotate(0deg);
   }
   35%{
-    transform: translateX(1000px) translateY(-130px) rotate(90deg);
+    transform: translateX(905px) translateY(-600px) rotate(90deg);
   }
   40%{
-    transform: translateX(1000px) translateY(200px) rotate(90deg);
+    transform: translateX(915px) translateY(200px) rotate(90deg);
   }
   45%{
-    transform: translateX(1000px) translateY(500px) rotate(1300deg);
+    transform: translateX(915px) translateY(600px) rotate(1300deg);
   }
   60%{
-    transform: translateX(1000px) translateY(2000px) rotate(1800deg);
+    transform: translateX(920px) translateY(600px) rotate(1800deg);
   }
-  70%{
+  62%{
     opacity: 0;
-    transform: translateX(0) translateY(-330px) rotate(1800deg);
+    transform: translateX(920px) translateY(0) rotate(1800deg);
   }
-  80%{
+  75%{
     opacity: 0;
-    transform: translateX(0) translateY(-650px) rotate(1800deg);
+    transform: translateX(0) translateY(-600px) rotate(1800deg);
   }
   100% {
     opacity: 1;
-    transform: translateX(0) translateY(-330px) rotate(0deg);
+    transform: translateX(0) translateY(-600px) rotate(0deg);
   }
 }

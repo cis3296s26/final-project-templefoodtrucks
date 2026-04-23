@@ -5,7 +5,7 @@ import {
 export default function TruckAnimation({ className }){
     return(
         <>
-        <div className='relative animate-pulse'>
+        <div className='relative animate-pulse pointer-events-none'>
             <Truck color='white' className={`absolute w-25 h-80 top-115 left-2 ${className}`}></Truck>    {/*if you want stand alone bounce animation in tailwind -->  animate-[bounce_1.5s_ease-in-out_infinite] */}
         </div>
         {/* <div className='relative'>

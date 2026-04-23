@@ -30,6 +30,8 @@ urlpatterns = [
     # Detail view for a specific food truck, identified by its primary key (pk)
     # for example, /foodtrucks/1/ would retrieve the details of the food truck with ID=1
     path('foodtrucks/<int:pk>/', views.FoodTruckDetail.as_view(), name='foodtruck-detail'),
+    # URL for adding a new food truck
+    path('create_food_truck/', views.create_food_truck, name='create_food_truck'),
     # URL for verifying the signup token and creating a new user account
     path('auth/verify-signup/', views.verify_signup, name='verify-signup'),
     path('auth/generate-invite-link/', views.generate_invite_link, name='generate-invite-link'),

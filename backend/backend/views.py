@@ -2,8 +2,8 @@
 import token
 import os
 from django.shortcuts import render
-from rest_framework import generics, permissions
-from app.models import FoodTruck
+from rest_framework import generics, permissions, status
+from app.models import FoodTruck, FoodTruckImageGallery
 from app.serializer import FoodTruckSerializer
 from .permissions import ownerOrReadOnly 
 from django.core.signing import TimestampSigner, SignatureExpired
@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from django.contrib.auth.models import Group
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 # Initialize a TimestampSigner instance for signing and verifying tokens (FOR QR CODE)
 signer = TimestampSigner(salt='signup-salt') 
@@ -74,6 +75,43 @@ def verify_invite_and_signup(request):
         signer.unsign(token, max_age=86400)
     except (SignatureExpired, Exception):
         return JsonResponse({'error': 'Invalid or expired token'}, status=403)
+
+
+@api_view(['POST'])
+def create_food_truck(request):
+    data = request.data
+    
+    data.setlist(
+        "dietaryRestrictions",
+        request.data.getlist("dietaryRestrictions")
+    )
+    
+    price_range_array = [int(request.data.get('minPrice')), int(request.data.get('maxPrice'))]
+    
+    data.setlist("priceRangeArray", price_range_array)
+    
+    serializer = FoodTruckSerializer(data=data)
+
+    if serializer.is_valid():
+        
+        # should actually use request.user, but getting default user for testing rn
+        # user = request.user
+        user = User.objects.first()
+        
+        food_truck = serializer.save(owner=user)
+
+        # Handle gallery images separately
+        images = request.FILES.getlist('image_gallery')
+        for img in images:
+            FoodTruckImageGallery.objects.create(
+                food_truck=food_truck,
+                image=img
+            )
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
     
 # This class defines a view for listing and creating FoodTrucks
 # It uses Django REST Framework's generics to provide functionality for handling GET and POST requests

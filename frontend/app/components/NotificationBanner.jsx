@@ -12,6 +12,27 @@ export default function NotificationBanner({
   const [visible, setVisible] = useState(show);
   const [render, setRender] = useState(show); // controls DOM presence
 
+  const colorMap = {
+    red: {
+      bg: "bg-red-500/50",
+      border: "border-red-400",
+      text: "text-red-900",
+    },
+    green: {
+      bg: "bg-green-500/50",
+      border: "border-green-400",
+      text: "text-green-900",
+    },
+    blue: {
+      bg: "bg-blue-500/50",
+      border: "border-blue-400",
+      text: "text-blue-900",
+    },
+  };
+
+  const styles = colorMap[color]
+  const colorStyle =  `${styles.bg} ${styles.border} ${styles.text}`;
+
   useEffect(() => {
     if (show) {
       setRender(true);
@@ -32,7 +53,6 @@ export default function NotificationBanner({
 
   if (!render) return null;
 
-  const colorStyle = `bg-${color}-500/50 border-${color}-400 text-${color}-900`;
 
   return (
     <div
