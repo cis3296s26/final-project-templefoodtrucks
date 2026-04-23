@@ -14,9 +14,9 @@ class FoodTruck(models.Model):
     description = models.CharField(max_length=1000)
     foodType = models.CharField(max_length=100)
     phoneNumber = models.CharField(max_length=15)
-    dietaryRestrictions = ArrayField(models.CharField(max_length=20), size=5)
+    dietaryRestrictions = ArrayField(models.CharField(max_length=20), size=5, blank=True)
     popularity = models.FloatField()
-    location = models.CharField(max_length=200)
+    location = models.CharField(max_length=200, blank=True)
     priceRangeArray = ArrayField(models.IntegerField(), size=2, blank=True)
     status = models.CharField(max_length=10, choices=statusChoices, default='OPEN') # Whether the food truck is currently open or closed
     openingTime = models.TimeField(null=True, blank=True) # Time when the food truck opens

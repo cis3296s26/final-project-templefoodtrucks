@@ -2,12 +2,14 @@
 
 // imports from next
 import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 // imports from components
 import axiosClient from "@/app/axiosClient";
 import TruckCarousel from "../../components/TruckCarousel";
 import { PageMain } from "../../components/PageMain";
+import NotificationBanner from "@/app/components/NotificationBanner";
 
 import {
   MapPin,
@@ -20,10 +22,14 @@ import {
 } from "lucide-react";
 
 export default function TruckDetailPage() {
+  const searchParams = useSearchParams();
+
+  const [notification, setNotification] = useState(null);
   const [dietaryRestrictions, setDietaryRestrictions] = useState([]);
   const [priceRangeArray, setPriceRangeArray] = useState(["?", "?"]);
   const [truck, setTruck] = useState({});
   const { id } = useParams();
+  const newTruck = searchParams.get("isNew");
 
   useEffect(() => {
     async function getTruck() {
@@ -35,6 +41,14 @@ export default function TruckDetailPage() {
     }
 
     getTruck();
+
+    if (newTruck) {
+      setNotification({
+        message: "Created New Truck!",
+        color: "green",
+        duration: 5000,
+      });
+    }
   }, []);
 
   const listItems = [
@@ -51,10 +65,18 @@ export default function TruckDetailPage() {
   ];
 
   const iconSize = 48;
-  const iconColor = "black";
 
   return (
     <PageMain>
+      {notification && (
+        <NotificationBanner
+          duration={notification.duration}
+          color={notification.color}
+          message={notification.message}
+          onClose={() => setNotification(null)}
+        />
+      )}
+
       <h1 className="text-5xl font-semibold">{truck.name}</h1>
       <hr className="my-10 text-gray-500 w-full"></hr>
       <div className="flex flex-row items-center justify-around">
@@ -82,12 +104,12 @@ export default function TruckDetailPage() {
           <TruckCarousel images={truck.gallery_images} />
         </div>
 
-        <div className="lg:col-span-2 bg-white/50 rounded-2xl shadow-md border p-6">
+        <div className="lg:col-span-2 bg-white/50 rounded-2xl max-w-1/2 shadow-md border p-6">
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {listItems.map(({ icon: Icon, label }, i) => (
               <li key={i} className="flex items-center gap-4 m-5">
                 <div className="p-3 rounded-xl bg-gray-100">
-                  <Icon size={48} className="text-gray-700" />
+                  <Icon size={iconSize} className="text-gray-700" />
                 </div>
                 <span className="text-3xl font-medium text-gray-800">
                   {label || "N/A"}

@@ -6,15 +6,18 @@ import TruckAnimation from "./TruckAnimation";
 import MiniPopUpInfo from "./MiniPopUpInfo";
 import { useRouter } from "next/navigation";
 import axiosClient from "../axiosClient";
+import NotificationBanner from "./NotificationBanner";
 
 export default function SignUpInfoDesign() {
-  const router = useRouter()
+  const router = useRouter();
 
   const [typefood, settypefood] = useState("");
   const [dietaryRestrictions, setDietaryRestrictions] = useState([]);
   const [foodlist, setfoodlist] = useState([]);
   const [primage, setprimage] = useState(null);
   const [allimg, setallimg] = useState([null]);
+
+  const [notification, setNotification] = useState(null);
 
   function addFood(e) {
     e.preventDefault();
@@ -53,48 +56,61 @@ export default function SignUpInfoDesign() {
     setallimg([...allimg, null]);
   }
 
-async function create_food_truck(e) {
-  e.preventDefault();
+  async function create_food_truck(e) {
+    e.preventDefault();
 
-  const formData = new FormData(e.target);
+    const formData = new FormData(e.target);
 
-  formData.delete("dietaryRestrictions");
+    formData.delete("dietaryRestrictions");
 
-  dietaryRestrictions.forEach((item) => {
-    formData.append("dietaryRestrictions", item.toString().slice(0, 20));
-  });
+    dietaryRestrictions.forEach((item) => {
+      formData.append("dietaryRestrictions", item.toString().slice(0, 20));
+    });
 
-  
-  formData.set("minPrice", Number(formData.get("minPrice")));
-  formData.set("maxPrice", Number(formData.get("maxPrice")));
+    formData.set("minPrice", Number(formData.get("minPrice")));
+    formData.set("maxPrice", Number(formData.get("maxPrice")));
 
-  formData.set("popularity", 0);
+    formData.set("popularity", 0);
 
-  const galleryInputs = document.querySelectorAll(
-    'input[name="image_gallery_"]'
-  );
-
-  galleryInputs.forEach((input) => {
-    if (input.files[0]) {
-      formData.append("image_gallery", input.files[0]);
-    }
-  });
-
-  try {
-    const res = await axiosClient(
-      "create_food_truck/",
-      formData,
-      null,
-      "POST"
+    const galleryInputs = document.querySelectorAll(
+      'input[name="image_gallery_"]',
     );
 
-    router.push(`/trucks/${res.id}`)
-  } catch (err) {
-    console.log("ERROR:", err.response?.data);
+    galleryInputs.forEach((input) => {
+      if (input.files[0]) {
+        formData.append("image_gallery", input.files[0]);
+      }
+    });
+
+    try {
+      const res = await axiosClient(
+        "create_food_truck/",
+        formData,
+        null,
+        "POST",
+      );
+
+      router.push(`/trucks/${res.id}?isNew=1`);
+    } catch (err) {
+      setNotification({
+        message: "Sorry, Truck Was Not Created | " + err.message,
+        color: "red",
+        duration: 5000
+      });
+    }
   }
-}
   return (
     <div className="flex justify-center p-6 min-h-screen">
+
+      {notification && (
+        <NotificationBanner
+          duration={notification.duration}
+          color={notification.color}
+          message={notification.message}
+          onClose={() => setNotification(null)}
+        />
+      )}
+
       <div className="relative w-full px-25 max-w-8/12 bg-linear-to-b border-2 from-white/50 to-black/50 rounded-3xl shadow-xl/30 shadow-black pt-8 pb-12">
         <h1 className="text-4xl font-bold text-center mb-6">
           Food Truck Registration
@@ -111,12 +127,13 @@ async function create_food_truck(e) {
         >
           {/* General */}
           <Section title="Truck Information" color="bg-blue-500">
-            <input name="name" type="text" placeholder="Truck Name" />
-            <input name="phoneNumber" type="text" placeholder="Phone Number" />
+            <input name="name" type="text" placeholder="Truck Name" required />
+            <input name="phoneNumber" type="text" placeholder="Phone Number" required />
             <textarea
               name="description"
               placeholder="Description"
               className="input h-32 resize-none"
+              required
             />
           </Section>
 
@@ -200,6 +217,7 @@ async function create_food_truck(e) {
               type="text"
               placeholder="Type Of Food"
               className="input w-24"
+              required
             />
           </Section>
 
