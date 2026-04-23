@@ -44,7 +44,7 @@ export default function SignUp() {
     // Handle "token exists"
     return (
         <PageMain>
-            <SignUpDesign onSubmit={onSignupSubmit} />
+            <SignUpDesign onSubmit={onSignupSubmit} nameChange={"Sign Up"}/>
         </PageMain>
     );
 

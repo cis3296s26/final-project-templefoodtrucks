@@ -32,7 +32,7 @@ export default function Login() {
 
   return (
     <PageMain>
-      <SignUpDesign onSubmit={onSignupSubmit} />
+      <SignUpDesign onSubmit={onSignupSubmit} nameChange={"Login"} />
     </PageMain>
   );
 }
