@@ -10,7 +10,7 @@ export default function SignUpDesign({ onSubmit }) {
     // Collects the user's inputted data
     const [formData, setFormData] = useState({
         fullName: "",
-        email: "",
+        username: "",
         password: "",
         confirmPassword: ""
     });
@@ -48,14 +48,14 @@ export default function SignUpDesign({ onSubmit }) {
                 
                 <div className="flex flex-wrap justify-center m-2 p-5 gap-7">
 
-                    {/* Email Input */}
+                    {/* Username Input */}
                     <div className="bg-white w-120 h-10 rounded-4xl">
                         <input 
-                            type="email" 
-                            placeholder="Email Address" 
+                            type="text" 
+                            placeholder="Username" 
                             required 
-                            value={formData.email}
-                            onChange={(e) => setFormData({...formData, email: e.target.value})}
+                            value={formData.username}
+                            onChange={(e) => setFormData({...formData, username: e.target.value})}
                             className="text-black focus:outline-none flex p-2 w-full bg-transparent"
                         />
                     </div>

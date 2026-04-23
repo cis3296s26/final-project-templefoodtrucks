@@ -14,14 +14,18 @@ export default function Login() {
   const router = useRouter();
 
   // This function is called when the login form is submitted
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = async (formData) => {
     try {
       // Prepare the payload for the login request
-      const payload = {
+      const username = formData["username"]
+      const password = formData["password"]
+
+      let payload = {
         username: username,
         password: password
       };
+
+      console.log(payload)
 
       // call the login endpoint in urls.py
       const response = await axiosClient("api/login/", payload, "", "POST");
@@ -46,7 +50,7 @@ export default function Login() {
 // Styling component
 return (
     <PageMain>
-      <SignUpDesign> </SignUpDesign>
+      <SignUpDesign onSubmit={handleLogin}> </SignUpDesign>
     </PageMain>
   );
 }

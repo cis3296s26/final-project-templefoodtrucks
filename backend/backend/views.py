@@ -81,7 +81,6 @@ def verify_invite_and_signup(request):
 def create_food_truck(request):     
     data = request.data
 
-    return Response(request.data, 400)
     data.setlist(
         "dietaryRestrictions",
         request.data.getlist("dietaryRestrictions")
@@ -90,7 +89,6 @@ def create_food_truck(request):
     price_range_array = [int(request.data.get('minPrice')), int(request.data.get('maxPrice'))]
     
     data.setlist("priceRangeArray", price_range_array)
-    
     
     if(request.method == "PUT"):
         serializer = FoodTruckSerializer(FoodTruck.objects.get("id"),data=data)
