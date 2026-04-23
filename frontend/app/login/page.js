@@ -50,7 +50,7 @@ export default function Login() {
 // Styling component
 return (
     <PageMain>
-      <SignUpDesign onSubmit={handleLogin}> </SignUpDesign>
+      <SignUpDesign onSubmit={onSignupSubmit} nameChange={"Login"} />
     </PageMain>
   );
 }
