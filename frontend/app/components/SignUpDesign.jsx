@@ -6,7 +6,7 @@ import TruckAnimation from "./TruckAnimation";
 import { useRouter } from "next/navigation";
 
 // We pass 'onSubmit' as a prop so the parent (page.js) can handle the API call
-export default function SignUpDesign({ onSubmit }) {
+export default function SignUpDesign({ onSubmit, nameChange }) {
     // Collects the user's inputted data
     const [formData, setFormData] = useState({
         fullName: "",
@@ -44,7 +44,7 @@ export default function SignUpDesign({ onSubmit }) {
                     <TruckAnimation className="" />
                 </div>
                 
-                <h1 className="font-[Georgia] font-bold text-4xl">Sign Up</h1>
+                <h1 className="font-[Georgia] font-bold text-4xl">{nameChange}</h1>
                 
                 <div className="flex flex-wrap justify-center m-2 p-5 gap-7">
 
@@ -90,7 +90,7 @@ export default function SignUpDesign({ onSubmit }) {
                             type="submit"
                             className="text-white flex justify-center p-1 w-full hover:scale-150 hover:shadow-xl duration-300 transition-all hover:bg-white hover:text-black"
                         >
-                            <p className="font-bold text-3xl">Sign Up</p>
+                            <p className="font-bold text-3xl">{nameChange}</p>
                         </button>
                     </div>
                 </div>
