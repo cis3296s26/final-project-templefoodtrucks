@@ -4,25 +4,32 @@ import { useState } from "react";
 import { Typefoodbutton } from "./Typefoodbutton";
 import TruckAnimation from "./TruckAnimation";
 import MiniPopUpInfo from "./MiniPopUpInfo";
+import { useRouter } from "next/navigation";
 import axiosClient from "../axiosClient";
 
 export default function SignUpInfoDesign() {
+  const router = useRouter()
+
   const [typefood, settypefood] = useState("");
+  const [dietaryRestrictions, setDietaryRestrictions] = useState([]);
   const [foodlist, setfoodlist] = useState([]);
   const [primage, setprimage] = useState(null);
   const [allimg, setallimg] = useState([null]);
 
-  function addFood() {
+  function addFood(e) {
+    e.preventDefault();
     if (typefood.trim() === "") return;
     setfoodlist([
       ...foodlist,
       { name: typefood, color1: randomColor(), color2: randomColor() },
     ]);
+    setDietaryRestrictions([...dietaryRestrictions, typefood]);
     settypefood("");
   }
 
   function removeFood(index) {
     setfoodlist(foodlist.filter((_, i) => i !== index));
+    setDietaryRestrictions(dietaryRestrictions.filter((_, i) => i !== index));
   }
 
   function randomColor() {
@@ -46,44 +53,46 @@ export default function SignUpInfoDesign() {
     setallimg([...allimg, null]);
   }
 
-  async function create_food_truck(e) {
-    e.preventDefault();
+async function create_food_truck(e) {
+  e.preventDefault();
 
-    const formData = new FormData(e.target);
+  const formData = new FormData(e.target);
 
-    const minPrice = e.target.minPrice.value;
-    const maxPrice = e.target.maxPrice.value;
+  formData.delete("dietaryRestrictions");
 
-    const cleanDietary = foodlist.map((item) => item.toString().slice(0, 20));
+  dietaryRestrictions.forEach((item) => {
+    formData.append("dietaryRestrictions", item.toString().slice(0, 20));
+  });
 
-    formData.set("dietaryRestrictions", JSON.stringify(cleanDietary));
+  
+  formData.set("minPrice", Number(formData.get("minPrice")));
+  formData.set("maxPrice", Number(formData.get("maxPrice")));
 
-    formData.set(
-      "priceRangeArray",
-      JSON.stringify([
-        Number(minPrice),
-        Number(maxPrice),
-      ]),
+  formData.set("popularity", 0);
+
+  const galleryInputs = document.querySelectorAll(
+    'input[name="image_gallery_"]'
+  );
+
+  galleryInputs.forEach((input) => {
+    if (input.files[0]) {
+      formData.append("image_gallery", input.files[0]);
+    }
+  });
+
+  try {
+    const res = await axiosClient(
+      "create_food_truck/",
+      formData,
+      null,
+      "POST"
     );
 
-    console.log(formData.get("priceRangeArray"))
-
-    formData.set("popularity", 0);
-
-    try {
-      const res = await axiosClient(
-        "create_food_truck/",
-        formData,
-        null,
-        "POST",
-      );
-
-      console.log("SUCCESS:", res.data);
-    } catch (err) {
-      console.log("ERROR:", err.response?.data);
-    }
+    router.push(`/trucks/${res.id}`)
+  } catch (err) {
+    console.log("ERROR:", err.response?.data);
   }
-
+}
   return (
     <div className="flex justify-center p-6 min-h-screen">
       <div className="relative w-full px-25 max-w-8/12 bg-linear-to-b border-2 from-white/50 to-black/50 rounded-3xl shadow-xl/30 shadow-black pt-8 pb-12">
@@ -118,7 +127,7 @@ export default function SignUpInfoDesign() {
                 name="dietaryRestrictions"
                 value={typefood}
                 onChange={(e) => settypefood(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && addFood()}
+                onKeyDown={(e) => e.key === "Enter" && addFood(e)}
                 placeholder="Ex: Vegan"
                 className="input flex-1"
               />

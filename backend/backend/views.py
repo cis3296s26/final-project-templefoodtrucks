@@ -81,17 +81,24 @@ def verify_invite_and_signup(request):
 def create_food_truck(request):
     data = request.data
     
-    if "priceRangeArray" in data:
-        data["priceRangeArray"] = json.loads(data["priceRangeArray"])
-
-    if "dietaryRestrictions" in data:
-        data["dietaryRestrictions"] = json.loads(data["dietaryRestrictions"])
+    data.setlist(
+        "dietaryRestrictions",
+        request.data.getlist("dietaryRestrictions")
+    )
+    
+    price_range_array = [int(request.data.get('minPrice')), int(request.data.get('maxPrice'))]
+    
+    data.setlist("priceRangeArray", price_range_array)
     
     serializer = FoodTruckSerializer(data=data)
 
     if serializer.is_valid():
         
-        food_truck = serializer.save(owner=request.user)
+        # should actually use request.user, but getting default user for testing rn
+        # user = request.user
+        user = User.objects.first()
+        
+        food_truck = serializer.save(owner=user)
 
         # Handle gallery images separately
         images = request.FILES.getlist('image_gallery')
