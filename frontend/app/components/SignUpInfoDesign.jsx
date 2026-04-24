@@ -129,6 +129,7 @@ export default function SignUpInfoDesign({ truckData, typeOfRequest }) {
         formData,
         localStorage.getItem("access_token"),
         typeOfRequest,
+        true
       );
 
       let url = `/trucks/${res.id}`

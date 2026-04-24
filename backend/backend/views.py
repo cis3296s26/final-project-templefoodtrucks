@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from django.contrib.auth.models import Group
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.permissions import IsAuthenticated
 import json
 
 # Initialize a TimestampSigner instance for signing and verifying tokens (FOR QR CODE)
@@ -30,6 +31,16 @@ def verify_signup(request):
     print(f"Received token: {token}")
     email = request.data.get('email')
     password = request.data.get('password')
+
+    # Log the received email and token for debugging
+    print(f"Email: {email}, Token: {token}")
+
+    # Validate that email and password are provided
+    if not email or not password:
+        return Response(
+            {'error': 'Email and password are required to create an account.'}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
     try:
         signer.unsign(token, max_age=86400)
@@ -78,6 +89,8 @@ def verify_invite_and_signup(request):
 
 
 @api_view(['POST'])
+# ONLY TRUCK OWNERS CAN MAKE TRUCKS
+@permission_classes([IsAuthenticated])
 def create_food_truck(request):     
     data = request.data
 
