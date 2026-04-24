@@ -13,3 +13,5 @@ qrcode[pil]
 Pillow
 django-cloudinary-storage
 cloudinary
+gunicorn
+whitenoise
