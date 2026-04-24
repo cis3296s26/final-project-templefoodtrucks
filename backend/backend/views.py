@@ -71,9 +71,9 @@ def generate_invite_link(request):
     token = signer.sign('food-truck-invite')
     # Create the invite URL using the generated token 
     frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:3000')
-    invite_url = f"{frontend_url}/invite/{token}"    
+    invite_url = f"{frontend_url.rstrip('/')}/signup?token={token}"  
     
-    return JsonResponse({'invite_url': invite_url})  
+    return Response({'invite_url': invite_url})  
 
 @api_view(['POST'])
 # This view verifies the invite token and allows users to sign up if the token is valid 
