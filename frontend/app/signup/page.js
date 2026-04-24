@@ -3,8 +3,9 @@ import { PageMain } from "../components/PageMain";
 import SignUpDesign from "../components/SignUpDesign";
 import { useSearchParams } from 'next/navigation';
 import axiosClient from "../axiosClient"; 
+import { Suspense } from 'react';
 
-export default function SignUp() {
+function SignUpContent() {
     const search_params = useSearchParams();
     const token = search_params.get("token");
 
@@ -13,7 +14,7 @@ export default function SignUp() {
         // userData should contain email and password
         try {
             const payload = {
-                email: userData.email,
+                email: userData.email || userData.username,
                 password: userData.password,
                 token: token 
             };
@@ -22,7 +23,7 @@ export default function SignUp() {
             // Handle the response from the backend
             if (response) {
                 alert("Account created! Redirecting to login...");
-                window.location.href = "/login"; // Or wherever your login page is
+                window.location.href = "/login"; // Redirect to login page after successful signup
             }
         } catch (error) {
             console.error("Signup Error:", error);
@@ -49,3 +50,20 @@ export default function SignUp() {
     );
 
 };
+
+// switch to wrapping the content in suspense component
+export default function handleSignUp() {
+    // This allows us to show a loading state while the SignUpContent component is being prepared, 
+    // which can be useful if there are any asynchronous operations or if the component is large and takes time to load
+    return (
+        <PageMain>
+            <Suspense fallback={
+                <div className="flex justify-center items-center h-screen text-white">
+                    Loading registration...
+                </div>
+            }>
+                <SignUpContent />
+            </Suspense>
+        </PageMain>
+    );
+}
