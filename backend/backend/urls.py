@@ -29,6 +29,8 @@ urlpatterns = [
     # JWT Login endpoints
     path('api/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # Get user info
+    path('get_user/', views.get_user, name='get_user'),
     # List view for all food trucks
     path('foodtrucks/', views.get_trucks, name='foodtrucks'),
     # Detail view for a specific food truck, identified by its primary key (pk)

@@ -24,10 +24,10 @@ export default function Navbar() {
       ? [
           {
             href: "/signup/signup_info",
-            label: "Create A Food Truck",
+            label: "Create/Modify Your Food Truck",
             icon: TruckIcon,
           },
-          { href: "/logout", label: "Log Out", icon: UserMinus},
+          { href: "/logout", label: "Log Out", icon: UserMinus },
         ]
       : [{ href: "/login", label: "Log In", icon: UserPlus }];
 

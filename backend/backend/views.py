@@ -210,3 +210,17 @@ def get_trucks(request):
     
     serializer = FoodTruckSerializer(queryset, many=True)
     return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_user(request):
+    user = request.user
+
+    usersTruck = FoodTruck.objects.filter(owner=user).first()
+    
+    context = {
+        'username': user.username,
+        'truck': FoodTruckSerializer(usersTruck).data
+    }
+    
+    return Response(context, 200)
