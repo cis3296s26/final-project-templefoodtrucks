@@ -2,6 +2,7 @@ from django.contrib.gis.db import models
 from django.utils import timezone
 from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
+from django.contrib.auth.models import User
 
 # Food truck model with fields for name, food type, location, and active status
 
@@ -51,3 +52,12 @@ class FoodTruckImageGallery(models.Model):
 
     def __str__(self):
         return f"Image for {self.food_truck.name} uploaded"
+    
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    truck = models.ForeignKey(FoodTruck, on_delete=models.CASCADE, related_name="ratings")
+    value = models.IntegerField()  # 1–5
+    created_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ("user", "truck")  # one rating per user per truck

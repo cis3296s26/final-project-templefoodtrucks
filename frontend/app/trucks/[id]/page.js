@@ -10,6 +10,7 @@ import axiosClient from "@/app/axiosClient";
 import TruckCarousel from "../../components/TruckCarousel";
 import { PageMain } from "../../components/PageMain";
 import NotificationBanner from "@/app/components/NotificationBanner";
+import StarRating from "@/app/components/StarRating";
 
 import {
   MapPin,
@@ -147,17 +148,29 @@ export default function TruckDetailPage() {
 
       <hr className="my-10 text-gray-500 w-full"></hr>
 
-      <h1 className="text-3xl mb-6">Dietary Restrictions</h1>
+      <div className="flex flex-row justify-evenly">
+        {/* dietary retrictions */}
+        <div>
+          <h1 className="text-3xl mb-6">Dietary Restrictions</h1>
 
-      <div className="flex flex-wrap gap-3 justify-center">
-        {dietaryRestrictions.map((item, i) => (
-          <span
-            key={i}
-            className="px-4 py-2 bg-green-100 text-green-800 text-lg font-medium rounded-full shadow-sm border border-green-300"
-          >
-            {item}
-          </span>
-        ))}
+          <div className="flex flex-wrap gap-3 justify-center">
+            {dietaryRestrictions.map((item, i) => (
+              <span
+                key={i}
+                className="px-4 py-2 bg-green-100 text-green-800 text-lg font-medium rounded-full shadow-sm border border-green-300"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* dietary retrictions */}
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="text-3xl mb-6">Rate This Truck!</h1>
+
+          <StarRating onChange={(rating) => {const res = axiosClient(`/rate_truck/${id}/`, {rating: rating}, localStorage.access_token, 'POST', false); console.log(res)}}/>
+        </div>
       </div>
     </PageMain>
   );

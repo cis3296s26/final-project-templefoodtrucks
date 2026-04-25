@@ -3,9 +3,10 @@ import token
 import os
 from django.shortcuts import render
 from rest_framework import generics, permissions, status
-from app.models import FoodTruck, FoodTruckImageGallery
+from app.models import FoodTruck, FoodTruckImageGallery, Rating
 from app.serializer import FoodTruckSerializer
 from .permissions import ownerOrReadOnly 
+from django.db.models import Avg
 from django.core.signing import TimestampSigner, SignatureExpired
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
@@ -14,7 +15,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from django.contrib.auth.models import Group
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 import json
 
 # Initialize a TimestampSigner instance for signing and verifying tokens (FOR QR CODE)
@@ -124,6 +125,32 @@ def create_food_truck(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def rate_truck(request, truck_id):
+    user = request.user if request.user.is_authenticated else None
+    value = int(request.data.get("rating"))
+
+    truck = FoodTruck.objects.get(id=truck_id)
+
+    # Create or update rating
+    Rating.objects.update_or_create(
+        user=user,
+        truck=truck,
+        defaults={"value": value}
+    )
+
+    # Recalculate average
+    avg_rating = truck.ratings.aggregate(avg=Avg("value"))["avg"] or 0
+
+    truck.popularity = avg_rating
+    truck.save()
+
+    return Response({
+        "message": "Rating saved",
+        "average": avg_rating
+    })
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])

@@ -38,7 +38,9 @@ urlpatterns = [
     # URL for adding a new food truck
     path('create_food_truck/', views.create_food_truck, name='create_food_truck'),
     # modifying food truck
-    path('modify_food_truck/<int:pk>/', views.modify_food_truck, name='modify_food_truck'),
+    path('modify_food_truck/<int:pk>/', views.modify_food_truck, name='modify-food-truck'),
+    # rate a truck
+    path("rate_truck/<int:truck_id>/", views.rate_truck, name='rate-a-truck'),
     # URL for verifying the signup token and creating a new user account
     path('auth/verify-signup/', views.verify_signup, name='verify-signup'),
     path('auth/generate-invite-link/', views.generate_invite_link, name='generate-invite-link'),
