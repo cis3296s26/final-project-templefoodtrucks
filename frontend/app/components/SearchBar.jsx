@@ -11,9 +11,9 @@ export default function SearchBar({ onSubmit }) {
         const data = {
           name: formData.get("name"),
           foodtype: formData.get("foodtype"),
-          status: formData.get("status") || "OPEN",
-          popularity: formData.get("popularity") || 3,
-          price: formData.get("priceRange") || 10, 
+          status: formData.get("status"),
+          popularity: formData.get("popularity"),
+          price: formData.get("priceRange"), 
         };
 
         onSubmit(data);

@@ -7,11 +7,9 @@ import MiniPopUpInfo from "./MiniPopUpInfo";
 import { useRouter } from "next/navigation";
 import axiosClient from "../axiosClient";
 import NotificationBanner from "./NotificationBanner";
-import {
-  Truck
-} from 'lucide-react'
+import { Truck } from "lucide-react";
 
-export default function SignUpInfoDesign({ truckData, typeOfRequest }) {
+export default function SignUpInfoDesign({ truckData, typeOfRequest, letKnowWhatDoing }) {
   const router = useRouter();
 
   const [typefood, settypefood] = useState("");
@@ -19,12 +17,13 @@ export default function SignUpInfoDesign({ truckData, typeOfRequest }) {
   const [foodlist, setfoodlist] = useState([]);
   const [primage, setprimage] = useState(null);
   const [allimg, setallimg] = useState([null]);
+  const [existingGallery, setExistingGallery] = useState([]);
 
   const [notification, setNotification] = useState(null);
 
   useEffect(() => {
-    if (Object.keys(truckData).length > 0) {
-      // we got a real truck here
+    if (typeOfRequest == "PUT") {
+      // we got a real truck here, we're editing it, not makign a new one
       console.log(truckData);
       truckData["minPrice"] = truckData["priceRangeArray"][0];
       truckData["maxPrice"] = truckData["priceRangeArray"][1];
@@ -32,6 +31,14 @@ export default function SignUpInfoDesign({ truckData, typeOfRequest }) {
       delete truckData.popularity;
       delete truckData.priceRangeArray;
 
+      if (truckData.image) {
+        setprimage(truckData.image);
+      }
+      if (truckData.gallery_images) {
+        setExistingGallery(truckData.gallery_images);
+      }
+
+      // fill in all the data
       let inputs = document.getElementsByTagName("input");
       for (let input of inputs) {
         if (input.name == "dietaryRestrictions") {
@@ -39,12 +46,9 @@ export default function SignUpInfoDesign({ truckData, typeOfRequest }) {
             settypefood(dietRestrict);
             addFood();
           }
-        } 
-        else if (input.type == "file") {
-          setprimage(truckData[input.name])
-          input.src = truckData[input.name]
-        }
-        else{
+        } else if (input.name.includes("image")) {
+          continue;
+        } else {
           input.value = truckData[input.name];
         }
       }
@@ -54,7 +58,7 @@ export default function SignUpInfoDesign({ truckData, typeOfRequest }) {
         textarea.value = truckData[textarea.name];
       }
     }
-  }, [truckData]);
+  }, [truckData, typeOfRequest]);
 
   function addFood(e) {
     if (e) {
@@ -100,6 +104,15 @@ export default function SignUpInfoDesign({ truckData, typeOfRequest }) {
 
     const formData = new FormData(e.target);
 
+    formData.delete("image");
+
+    // re-add ONLY if user selected a file
+    const imageInput = e.target.querySelector('input[name="image"]');
+
+    if (imageInput.files && imageInput.files[0]) {
+      formData.append("image", imageInput.files[0]);
+    }
+
     formData.delete("dietaryRestrictions");
 
     dietaryRestrictions.forEach((item) => {
@@ -124,17 +137,23 @@ export default function SignUpInfoDesign({ truckData, typeOfRequest }) {
     // if truck data exists, its a put, else, it's a post
 
     try {
+      const endpoint =
+        typeOfRequest == "POST"
+          ? "create_food_truck/"
+          : `modify_food_truck/${truckData.id}/`;
       const res = await axiosClient(
-        "create_food_truck/",
+        endpoint,
         formData,
         localStorage.getItem("access_token"),
         typeOfRequest,
-        true
+        true,
       );
 
-      let url = `/trucks/${res.id}`
-      if(typeOfRequest=="PUT"){url += "?isNew=1"}
-      
+      let url = `/trucks/${res.id}`;
+      if (typeOfRequest == "POST") {
+        url += "?isNew=1";
+      }
+
       router.push(url);
     } catch (err) {
       setNotification({
@@ -157,7 +176,7 @@ export default function SignUpInfoDesign({ truckData, typeOfRequest }) {
 
       <div className="relative w-full px-25 max-w-8/12 bg-linear-to-b border-2 from-white/50 to-black/50 rounded-3xl shadow-xl/30 shadow-black pt-8 pb-12">
         <h1 className="text-4xl font-bold text-center mb-6">
-          Food Truck Registration
+          {letKnowWhatDoing} Your Food Truck
         </h1>
         <Truck className="animate-pulse scale-200 relative bottom-2 left-10"></Truck>
         {/* <TruckAnimation className="animate-truck2 opacity-100" /> */}
@@ -289,14 +308,27 @@ export default function SignUpInfoDesign({ truckData, typeOfRequest }) {
               onChange={importpriImg}
             />
             {primage && (
-              <img src={primage} className="mt-3 rounded-xl max-h-60" />
+              <img
+                src={primage}
+                className="w-full h-80 object-contain rounded-xl mx-auto"
+              />
             )}
           </Section>
 
-          {/* Additional Images */}
           <Section title="Additional Images" color="bg-violet-400">
+            {/* Existing Images */}
+            {existingGallery.map((imgObj, index) => (
+              <div key={`existing-${index}`} className="flex flex-col gap-2">
+                <img
+                  src={imgObj.image}
+                  className="w-1/2 h-80 object-contain rounded-xl mx-auto"
+                />
+              </div>
+            ))}
+
+            {/* New Upload Inputs */}
             {allimg.map((img, index) => (
-              <div key={index} className="flex flex-col gap-2">
+              <div key={`new-${index}`} className="flex flex-col gap-2">
                 <input
                   name="image_gallery_"
                   type="file"
@@ -306,7 +338,10 @@ export default function SignUpInfoDesign({ truckData, typeOfRequest }) {
                   }
                 />
                 {img && (
-                  <img src={img} className="rounded-xl max-h-40 border" />
+                  <img
+                    src={img}
+                    className="w-1/2 h-80 object-contain rounded-xl mx-auto"
+                  />
                 )}
               </div>
             ))}
@@ -322,7 +357,7 @@ export default function SignUpInfoDesign({ truckData, typeOfRequest }) {
 
           {/* Submit */}
           <button className="w-full py-3 text-xl font-bold bg-black text-white rounded-xl hover:scale-105 border transition">
-            Register
+            {letKnowWhatDoing}
           </button>
         </form>
       </div>
