@@ -17,7 +17,6 @@ Including another URLconf
 from . import views
 from django.contrib import admin
 from django.urls import path, include
-from .views import verify_signup, FoodTruckList, FoodTruckDetail, generate_invite_link, verify_invite_and_signup
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_simplejwt.views import ( TokenObtainPairView, TokenRefreshView,)
@@ -38,6 +37,8 @@ urlpatterns = [
     path('foodtrucks/<int:pk>/', views.FoodTruckDetail.as_view(), name='foodtruck-detail'),
     # URL for adding a new food truck
     path('create_food_truck/', views.create_food_truck, name='create_food_truck'),
+    # modifying food truck
+    path('modify_food_truck/<int:pk>/', views.modify_food_truck, name='modify_food_truck'),
     # URL for verifying the signup token and creating a new user account
     path('auth/verify-signup/', views.verify_signup, name='verify-signup'),
     path('auth/generate-invite-link/', views.generate_invite_link, name='generate-invite-link'),

@@ -126,8 +126,14 @@ def create_food_truck(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT'])
-def modify_food_truck(request):     
-    data = request.data
+@permission_classes([IsAuthenticated])
+def modify_food_truck(request, pk):     
+    try:
+        food_truck = FoodTruck.objects.get(id=pk, owner=request.user)
+    except FoodTruck.DoesNotExist:
+        return Response({"error": "Truck not found"}, status=404)
+    
+    data = request.data.copy()
 
     data.setlist(
         "dietaryRestrictions",
@@ -138,15 +144,19 @@ def modify_food_truck(request):
     
     data.setlist("priceRangeArray", price_range_array)
     
-    serializer = FoodTruckSerializer(FoodTruck.objects.get("id"),data=data)
+    serializer = FoodTruckSerializer(food_truck,data=data,partial=True)
 
     if serializer.is_valid():
         
-        # should actually use request.user, but getting default user for testing rn
-        user = request.user
-        # user = User.objects.first()
+        food_truck = serializer.save()
         
-        food_truck = serializer.save(owner=user)
+        existing_ids = request.data.getlist("existing_gallery_ids")
+
+        # keep existing pictures
+        if existing_ids:
+            FoodTruckImageGallery.objects.filter(
+                food_truck=food_truck
+            ).exclude(id__in=existing_ids).delete()
 
         # Handle gallery images separately
         images = request.FILES.getlist('image_gallery')
