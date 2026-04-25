@@ -169,7 +169,7 @@ export default function TruckDetailPage() {
         <div className="flex flex-col items-center justify-center">
           <h1 className="text-3xl mb-6">Rate This Truck!</h1>
 
-          <StarRating onChange={(rating) => {const res = axiosClient(`/rate_truck/${id}/`, {rating: rating}, localStorage.access_token, 'POST', false); console.log(res)}}/>
+          <StarRating onChange={(rating) => {const res = axiosClient(`rate_truck/${id}/`, {rating: rating}, localStorage.access_token, 'POST', false); console.log(res)}}/>
         </div>
       </div>
     </PageMain>
