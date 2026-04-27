@@ -7,8 +7,7 @@ food truck owners, and visitors of Temple campus alike.
 
 ![This is a screenshot.](images.png)
 
-<img width="800" height="450" alt="2026-04-2719-33-13-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/b095553a-283a-401f-b723-fca78977e964" />
-
+<img width="800" height="450" alt="2026-04-2719-33-13-ezgif com-video-to-gif-converter(1)" src="https://github.com/user-attachments/assets/1a92a827-16e6-45f1-8e50-1a96ed1e8072" />
 
 # Local Development Setup
 1. Have Docker & Docker Compose installed
