@@ -14,10 +14,11 @@ food truck owners, and visitors of Temple campus alike.
 4. Clone the repo:
 
     git clone https://github.com/cis3296s26/Temple-Food-Trucks
+   
     cd Temple-Food-Trucks
 
-5. Create a .env file in the root directory of the project
-6. Copy and paste the following into the .env file, replace entries as needed
+6. Create a .env file in the root directory of the project
+7. Copy and paste the following into the .env file, replace entries as needed
 # Environment Variables
     SECRET_KEY=your_local_secret_key_here
     DEBUG=True
