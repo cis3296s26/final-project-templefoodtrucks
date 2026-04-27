@@ -41,17 +41,18 @@ food truck owners, and visitors of Temple campus alike.
 8. Initialize database by running:
 
     docker compose exec web python manage.py makemigrations
+   
     docker compose exec web python manage.py migrate
 
-9. Create admin account:
+10. Create admin account:
 
     docker compose exec web python manage.py createsuperuser
 
-10. This app uses QR codes and tokens to be able to register, here is the command to run in the root directory to generate a QR code and register token:
+11. This app uses QR codes and tokens to be able to register, here is the command to run in the root directory to generate a QR code and register token:
 
     docker compose exec web python makeQR.py
 
-11. Urls to access the app:
+12. Urls to access the app:
     Backend API: localhost:8000/foodtrucks/
     Django admin: localhost:8000/admin/
 
