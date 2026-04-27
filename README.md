@@ -18,23 +18,23 @@ food truck owners, and visitors of Temple campus alike.
 
 5. Create a .env file in the root directory of the project
 6. Copy and paste the following into the .env file, replace entries as needed
-'''python
-# Django Settings
-SECRET_KEY=your_local_secret_key_here
-DEBUG=True
-
-# Database
-DATABASE_URL=postgres://user:password@db:5432/foodtruckDB
-
-# Cloudinary (Image Storage, create Cloudinary account and setup the following keys if desired)
-CLOUDINARY_CLOUD_NAME=your_name
-CLOUDINARY_API_KEY=your_key
-CLOUDINARY_API_SECRET=your_secret
+'''
+# Environment Variables
+    SECRET_KEY=your_local_secret_key_here
+    DEBUG=True
     
-# URLs
-FRONTEND_URL=http://localhost:3000
-ALLOWED_HOSTS=localhost,127.0.0.1
-CORS_ALLOWED_ORIGINS=http://localhost:3000
+    # Database
+    DATABASE_URL=postgres://user:password@db:5432/foodtruckDB
+    
+    # Cloudinary (Image Storage, create Cloudinary account and setup the following keys if desired)
+    CLOUDINARY_CLOUD_NAME=your_name
+    CLOUDINARY_API_KEY=your_key
+    CLOUDINARY_API_SECRET=your_secret
+        
+    # URLs
+    FRONTEND_URL=http://localhost:3000
+    ALLOWED_HOSTS=localhost,127.0.0.1
+    CORS_ALLOWED_ORIGINS=http://localhost:3000
 '''
 8. Build and start containers by running:
 
