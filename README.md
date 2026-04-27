@@ -18,7 +18,6 @@ food truck owners, and visitors of Temple campus alike.
 
 5. Create a .env file in the root directory of the project
 6. Copy and paste the following into the .env file, replace entries as needed
-'''
 # Environment Variables
     SECRET_KEY=your_local_secret_key_here
     DEBUG=True
@@ -35,25 +34,24 @@ food truck owners, and visitors of Temple campus alike.
     FRONTEND_URL=http://localhost:3000
     ALLOWED_HOSTS=localhost,127.0.0.1
     CORS_ALLOWED_ORIGINS=http://localhost:3000
-'''
-8. Build and start containers by running:
+7. Build and start containers by running:
 
     docker compose up --build
 
-9. Initialize database by running:
+8. Initialize database by running:
 
     docker compose exec web python manage.py makemigrations
     docker compose exec web python manage.py migrate
 
-10. Create admin account:
+9. Create admin account:
 
     docker compose exec web python manage.py createsuperuser
 
-11. This app uses QR codes and tokens to be able to register, here is the command to run in the root directory to generate a QR code and register token:
+10. This app uses QR codes and tokens to be able to register, here is the command to run in the root directory to generate a QR code and register token:
 
     docker compose exec web python makeQR.py
 
-12. Urls to access the app:
+11. Urls to access the app:
     Backend API: localhost:8000/foodtrucks/
     Django admin: localhost:8000/admin/
 
