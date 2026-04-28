@@ -36,8 +36,12 @@ Live Links to Project:
     CLOUDINARY_CLOUD_NAME=your_name
     CLOUDINARY_API_KEY=your_key
     CLOUDINARY_API_SECRET=your_secret
-        
+
+    # To avoid any CSRF verification issues
+    CSRF_TRUSTED_ORIGINS=http://localhost:3000,http://localhost:8000
+    
     # URLs
+    NEXT_PUBLIC_DJANGO_URL=http://localhost:8000/ # For API
     FRONTEND_URL=http://localhost:3000
     ALLOWED_HOSTS=localhost,127.0.0.1
     CORS_ALLOWED_ORIGINS=http://localhost:3000
